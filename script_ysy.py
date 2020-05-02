@@ -3,7 +3,7 @@ import random
 
 def readfile(file):
     '''
-    This is to read the input file. 
+    This is to read the input file.
     It defines the player's defined parameter they want to put into the game.
 
     **parameters**
@@ -15,15 +15,16 @@ def readfile(file):
         day_of_quarantine
 
     '''
+    '''
+    # THIS IS THE FILE PUT IN .BFF
+
+    Mask wearing
+    '''
 
     f = open(file)
     line = f.readline()
 
     while line:
-        while line.startswith('first confirmed case'):
-            line = line.split()
-            firstcase_day = line[1]
-            line = f.readline()
 
         while line.startswith('mask wearing'):
             line = line.split()
@@ -43,63 +44,107 @@ def readfile(file):
         line = f.readline()
 
     f.close()
-    return (firstcase_day, mask_day, quarantine_day, isolation_day)
+    return (mask_day, quarantine_day, isolation_day)
 
 
 class People():
     # define the behavior of people
 
-    ppl = 2000  # total no. of people in cruise
-    crew = 650  # total no. of crews
-    broad_rate = 0.8  # possibility for you to get the virus from being in contact with a person w/out protection
-    # latency between a person get infected and shows sympton
-    virus_latency = random.randint(3, 14)
+    ppl = 2500  # total no. of people in cruise
 
     def __init__(self, aaa):
-        self.aaa = aaa
+        self.aaa = aaa  # 先挂着，到时候改
 
     def patient_0(self):
         '''
         generate a random age of the patient 0 and tell the player.
 
         '''
-        age = random.randint(0, 85)
+        0_numbers = random.randint(1, 10)
 
-        role_list = ['passenger', 'crew']
-        role = random.choice(role_list)
-
-        print("The patient 0's age is:", age, role)
+        print(0_numbers, "patient(s) on board are infected by COVID-19.")
 
         while True:
             msg = input(
-                "Please confirm the patient age, enter 'NEXT' to continue the game:")
+                "Please confirm the number of patient 0(s), enter 'NEXT' to continue the game:")
 
             if msg == "NEXT":
                 return
             else:
                 input("Wrong input, please enter 'NEXT' to continue the game:")
 
-        return(age, role)
+        return 0_numbers
+
+    def person_state(self, statecode):
+        '''
+        This is to check if the person is healthy, sick, recover, or dead and adjust the population number
+        0 is healthy, 1 is sick, 2 is recovered, 3 is death.
+
+        '''
+
+        if self.statecode = 1:
+            healthy_number -= 1
+        elif self.statecode = 2:
+            healthy_number += 1
+            recovered_number += 1
+            sick_number -= 1
+        elif self.statecode = 3:
+            healthy_number -= 1
+            sick_number -= 1
+            population -= 1
+            death_number += 1
+
+        return healthy_number, sick_number, death_number, recovered_number
+
+    def check_total_number(healthy_number, sick_number, death_number):
+        '''
+        ppl == healthy_number + sick_number + death number
+        population == healthy_number + sick number
+        recovered_number should be smaller than 
+        '''
+
+        if healthy_number + sick_number + death_number == ppl:
+            return True
+            if healthy_number + sick number == population:
+                return True
+        return False
+        # 此处加入自动避错code
 
 
-    def infection(self, age, role):
-        
-        if role == 'passenger':
-            # social interaction rate indicates how many percent of people on the cruise you are in close contact with
-            if age < 18:
-                social_interaction = 0.2
-            elif 18 <= age < 35:
-                social_interaction = 0.3
-            elif 35 <= age < 65:
-                social_interaction = 0.2
-            else:
-                social_interaction = 0.1
+class covid19():
 
-        else:
-            social_interaction = 0.5
+    broad_rate = 2.5  # possibility for you to get the virus from being in contact with a person w/out protection
+    action_latency = random.randint(3, 5)
+    # latency between a person get infected and shows sympton
+    disease_latency = random.randint(3, 14)
 
-        
+    def __init__(self, aaa):
+        self.aaa = aaa  # 先挂着，到时候改
 
+    def develop_without_preventation(self, a, b, c):
+
+        t_0 = 1  # day 1, day of boarding
+        r_0 = 0.35  # growth rate without preventation
+
+        firstcase_day = random.randint(1, 14)
+        t = firstcase_day + action_latency  # day when initial action is taken
+
+        N_without_preventation = 0_numbers * exp(r_0 * (t - t_0))
+        if N_without_preventation > 2500:
+            return False
+        return True
+
+        if
+
+class report():
+    # To get the numbers of healthy, sick, recovered, and dead conditions in a certain day
+    def __init__(self, day):
+        self.day = day
+
+    # 日情况
+
+    # 总情况
+    
 
 if __name__ == "__main__":
 
