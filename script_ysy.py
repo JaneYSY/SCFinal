@@ -1,56 +1,12 @@
 import random
+import numpy as np
+from scipy.integrate import odeint
 
 
-def readfile(file):
-    '''
-    This is to read the input file.
-    It defines the player's defined parameter they want to put into the game.
-
-    **parameters**
-        file:
-
-    **output**
-        day_of_first_case
-        day_of_mask
-        day_of_quarantine
-
-    '''
-    '''
-    # THIS IS THE FILE PUT IN .BFF
-
-    Mask wearing
-    '''
-
-    f = open(file)
-    line = f.readline()
-
-    while line:
-
-        while line.startswith('mask wearing'):
-            line = line.split()
-            mask_day = line[1]
-            line = f.readline()
-
-        while line.startswith('quarantine starts'):
-            line = line.split()
-            quarantine_day = line[1]
-            line = f.readline()
-
-        while line.startswith('patients isolation starts'):
-            line = line.split()
-            isolation_day = line[1]
-            line = f.readline()
-
-        line = f.readline()
-
-    f.close()
-    return (mask_day, quarantine_day, isolation_day)
-
-
-class People():
+class people():
     # define the behavior of people
 
-    ppl = 2500  # total no. of people in cruise
+    n = 2500  # total no. of people in cruise
 
     def __init__(self, aaa):
         self.aaa = aaa  # 先挂着，到时候改
@@ -60,27 +16,32 @@ class People():
         generate a random age of the patient 0 and tell the player.
 
         '''
-        0_numbers = random.randint(1, 10)
+        i_0 = random.randint(1, 10)
 
-        print(0_numbers, "patient(s) on board are infected by COVID-19.")
+        print(i_0, "patient(s) on board are infected by COVID-19.")
 
         while True:
             msg = input(
                 "Please confirm the number of patient 0(s), enter 'NEXT' to continue the game:")
 
-            if msg == "NEXT":
-                return
-            else:
-                input("Wrong input, please enter 'NEXT' to continue the game:")
+            while msg != "NEXT":
+                msg = input(
+                    "Wrong input, please enter 'NEXT' to continue the game:")
+                if msg != "NEXT":
+                    msg = input(
+                        "Wrong input, please enter 'NEXT' to continue the game:")
 
-        return 0_numbers
+            return i_0
 
     def person_state(self, statecode):
         '''
         This is to check if the person is healthy, sick, recover, or dead and adjust the population number
         0 is healthy, 1 is sick, 2 is recovered, 3 is death.
+        # 我也不知道有没有用 放着看看吧
+
 
         '''
+        healthy_number = ppl
 
         if self.statecode = 1:
             healthy_number -= 1
@@ -113,15 +74,74 @@ class People():
 
 class covid19():
 
-    broad_rate = 2.5  # possibility for you to get the virus from being in contact with a person w/out protection
-    action_latency = random.randint(3, 5)
-    # latency between a person get infected and shows sympton
-    disease_latency = random.randint(3, 14)
-
-    def __init__(self, aaa):
+    def __init__(self,):
         self.aaa = aaa  # 先挂着，到时候改
 
+    def deriv(t, n, infection_rate, recovery_per_day, incubation_period, days_to_die, death_rate):
+        '''
+        Number of suspecious, exposed, infected, death, and recovery per time unit dX / dt
+        The model and corresponding code referred to https://github.com/hf2000510/infectious_disease_modelling/blob/master/part_two.ipynb 
+        and articles https://towardsdatascience.com/infectious-disease-modelling-part-i-understanding-sir-28d60e29fdfc
+        and https://towardsdatascience.com/infectious-disease-modelling-beyond-the-basic-sir-model-216369c584c4
+
+        **parameter**
+            t: *int*
+                time = day #
+            n: *int*
+                total people on board at the beginning, 2500.
+            infection_rate: *float*
+                beta. # of ppl ONE infected person infects daily = 4
+            recovery_per_day:*float*
+                gamma γ. proportion of infected recovering per day (γ = 1/d,
+                d - number of days an infected person CAN spread the disease)
+            incubation_period:*float*
+                delta. Incubation period. Period before infectious, carrier cannot spread the disease
+            days_to_die:*int*
+                rho. Days take to die.
+            death_rate:*float*
+                alpha. Possibility to die.
+
+        **output**
+
+        '''
+        def infection_rate_opt(t):
+            '''
+            This is do change the infection rate based on action taken.
+            '''
+            infection_rate = 4
+
+            if t < min(day_of_handswash, day_of_masks, day_of_quarantine):
+                return infection_rate
+            else:
+                if t > day_of_handswash:
+                    infection_rate *= 0.95
+                if t > day_of_masks:
+                    infection_rate *= 0.6
+                if t > day_of_quarantine:
+                    infection_rate *= 0.3
+                return infection_rate
+
+
+        dSdt = -infection_rate_opt(t) * S * I / N
+        dEdt = infection_rate_opt(t) * S * I / N - delta * E
+        dIdt = delta * E - (1 - alpha) * gamma * I - alpha * rho * I
+        dRdt = (1 - alpha) * gamma * I
+        dDdt = alpha * rho * I
+
+        return dSdt, dEdt, dIdt, dRdt, dDdt
+
+        
+
     def develop_without_preventation(self, a, b, c):
+        '''
+        To predict the development of covid 19 without preventation before people start to take action
+
+        '''
+
+        broad_rate = 2.5  # possibility for you to get the virus from being in contact with a person w/out protection
+        action_latency = random.randint(3, 5)
+        # latency between a person get infected and shows sympton
+        disease_latency = random.randint(3, 14)
 
         t_0 = 1  # day 1, day of boarding
         r_0 = 0.35  # growth rate without preventation
@@ -136,15 +156,17 @@ class covid19():
 
         if
 
-class report():
+    def dev_with_preventation(self, a, b, c):
+
+
+def report():
     # To get the numbers of healthy, sick, recovered, and dead conditions in a certain day
-    def __init__(self, day):
-        self.day = day
 
     # 日情况
+    def daily_report():
 
-    # 总情况
-    
+    def total_report():  # 总情况
+
 
 if __name__ == "__main__":
 
