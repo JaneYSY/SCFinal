@@ -77,7 +77,7 @@ class covid19():
     def __init__(self,):
         self.aaa = aaa  # 先挂着，到时候改
 
-    def deriv(t, n, infection_rate, recovery_per_day, incubation_period, days_to_die, death_rate):
+    def deriv(self, t, n, infection_rate = 4, recovery_per_day, incubation_period, days_to_die, death_rate):
         '''
         Number of suspecious, exposed, infected, death, and recovery per time unit dX / dt
         The model and corresponding code referred to https://github.com/hf2000510/infectious_disease_modelling/blob/master/part_two.ipynb 
@@ -104,11 +104,18 @@ class covid19():
         **output**
 
         '''
-        def infection_rate_opt(t):
+        death_rate = 0.12  # 20% death rate
+        days_to_die = 1/14  # 9 days from infection until death
+        S0, E0, I0, R0, D0 = N-1, 1, 0, 0, 0  # initial conditions: one exposed
+        # 写到这里啊 记得！！！！！！！！！！！！
+
+
+
+        
+        def infection_rate_opt(self, t):
             '''
             This is do change the infection rate based on action taken.
             '''
-            infection_rate = 4
 
             if t < min(day_of_handswash, day_of_masks, day_of_quarantine):
                 return infection_rate
@@ -121,16 +128,20 @@ class covid19():
                     infection_rate *= 0.3
                 return infection_rate
 
+        d = 
 
-        dSdt = -infection_rate_opt(t) * S * I / N
-        dEdt = infection_rate_opt(t) * S * I / N - delta * E
-        dIdt = delta * E - (1 - alpha) * gamma * I - alpha * rho * I
-        dRdt = (1 - alpha) * gamma * I
-        dDdt = alpha * rho * I
+
+        dSdt = -infection_rate_opt(t) * S * I / n
+        dEdt = infection_rate_opt(t) * S * I / n - incubation_period * E
+        dIdt = incubation_period * E - (1 - death_rate) * recovery_per_day * I - death_rate * days_to_die * I
+        dRdt = (1 - death_rate) * recovery_per_day * I
+        dDdt = death_rate * days_to_die * I
 
         return dSdt, dEdt, dIdt, dRdt, dDdt
 
-        
+
+
+
 
     def develop_without_preventation(self, a, b, c):
         '''
