@@ -3,6 +3,24 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 import sys
 import random
+import math
+
+
+
+
+
+class Bed():
+	def __init__(self,)
+
+
+class Singleton(object):
+	_instance = None
+	
+	def __new__(cls, *args, **kwargs):
+		if cls._instance is None:
+			cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+		return cls._instance
+
 
 # Parameters
 class Parameters():
@@ -45,7 +63,8 @@ class Parameters():
 	#moving factor - how much movement is allowed, [0, 5]
 	moving_factors = 2
 
-class constant():
+
+class Constant():
 	healthy = 0
 	susceptible = healthy + 1
 	latency = susceptible + 1
@@ -54,7 +73,8 @@ class constant():
 	death = isolated + 1 # dead people, location frozen, cannot transmit
 
 
-
+# 单件模式
+class 
 
 
 
