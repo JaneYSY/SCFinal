@@ -4,34 +4,9 @@ from PyQt5.QtWidgets import *
 import sys
 import random
 import math
-from 
-
-class Cruise(metaclass=Singleton):
-    def __init__(self, cruise_centerx, cruise_centery):
-        self.cruise_centerx = cruise_centerx
-        self.cruise_centery = cruise_centery
 
 
-
-class Bed():
-    def __init__(self, bed_number):
-        self.bed_number = bed_number
-
-    def bed_change(self, bed_number):
-        '''
-        This is to add bed if bed is not enough. Bed is supposed to be added meet isolation need.
-
-        **parameter**
-
-        **output**
-        '''
-        current_bed_number = 20
-        if isolated > current_bed_number:
-            current_bed_number += sick - current_bed_number
-        return current_bed_number
-
-
-class Singleton(object):
+class SingleTon(object):
     _instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -40,9 +15,63 @@ class Singleton(object):
         return cls._instance
 
 
-# Parameters
-class Parameters():
+class Cruise(metaclass=SingleTon):
+    def __init__(self, cruise_centerx, cruise_centery):
+        self.centerx = cruise_centerx
+        self.centery = cruise_centery
 
+
+class Point:
+    def __init__(self, loc_x, loc_y):
+        self.x = loc_x
+        self.y = loc_y
+
+    def move(self, vec_x, vec_y):
+        self.x += vec_x
+        self.y += vec_y
+
+    def move_to(self, loc_x, loc_y):
+        self.x = loc_x
+        self.y = loc_y
+
+
+class Bed:
+    def __init__(self, bed_number):
+        self.bed_number = bed_number
+
+
+class IsoRoom(metaclass=SingleTon):
+    def __init__(self):
+        self.occupied_beds = 0
+        self.free_beds = Parameters.iso_room_capacity
+        self.need_beds = 0
+        self.beds_list = []
+
+
+class Person(Point):
+    def __init__(self,loc_x, loc_y, cruise):
+        super(Person, self).__init__(loc_x, loc_y)
+        self.cruise = cruise
+        self.sigma = Parameters.normal_sigma
+        self.t_sigma = Parameters.t_sigma
+        self.type = Condition.healthy
+        self.infected_time = 0
+        self.confirmed_time = 0
+        self.dead_time = 0
+        self.need_iso = False
+        self.relocation = None
+        self.assigned_bed = None
+
+
+class Track:
+    def __init__(self, loc_x, loc_y):
+        self.x = loc_x
+        self.y = loc_y
+        self.static = False
+
+
+class Parameters():
+    finish = False
     # total population on the cruise
     total_population = 2500
 
@@ -55,36 +84,37 @@ class Parameters():
     cruise_centery = 1000
 
     # Number of people who are infected (brought the disease on board)
-    patients_zero = random.randint(1, 10)
+    patients_zero = 5
 
     # rate of death for infected patients
-    fatal_rate = 0.12
+    fatal_rate = 0.08
+    trans_prob = 0.8
 
     # days take to die
     death_period = 15
 
     # variance of days to die
-    # 以后看看要不要写
-
-    # number of people a sick individual can infect
-    reproduction_rate = 2
+    death_period_var = 15
 
     # virus latency period
-    latency_period = random.randint(2, 14)
+    latency_period = 7
 
-    # response latency - delay of a sick person getting treatment, such as isolation
-    response_latency = 2
+    # response latency - delay of a sick person getting isolation
+    iso_latency = 2
 
-    # safe distance of social distancing
+    iso_room_capacity = 100
+    iso_room_size = 0
+
+    # safe distance of virus
     safe_distance = 2
 
-    # moving factor - how much movement is allowed, [0, 5]
-    moving_factors = 2
-    # variance of moving
-    moving_sigma = 3
+    flow_intention = 3
+
+    normal_sigma = 1
+    normal_t_sigma = 50
 
 
-class Constant():
+class Condition():
     healthy = 0
     susceptible = 1
     latency = 2
@@ -92,9 +122,6 @@ class Constant():
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
 
-
-# 单件模式
-class
 
 
 if __name__ == "__main__":
