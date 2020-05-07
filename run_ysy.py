@@ -6,7 +6,7 @@ import random
 import math
 
 
-class Cruise():
+class Cruise:
     _instance = None
 
     def __new__(cls, *args, **kw):
@@ -38,7 +38,7 @@ class Bed:
         self.bed_number = bed_number
 
 
-class IsoRoom(metaclass=SingleTon):
+class IsoRoom:
     _instance = None
 
     def __new__(cls, *args, **kw):
