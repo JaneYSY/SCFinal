@@ -7,21 +7,30 @@ import math
 
 
 class Singleton(type):
+    """
+    For some classes, only ONE instance is allowed. Singleton is to define here using metaclass, 
+    and metaclass to define the behavior of a class and its instance.
+
+    """
+
     _instances = {}
-    
+
     def __call__(cls, *args, **kwargs):
         if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+            cls._instances[cls] = super(
+                Singleton, cls).__call__(*args, **kwargs)
         return cls._instances[cls]
 
+    """ Title: Python Course: Metaclasses - Creating Singletons using Metaclasses
+    Author: Bernd Klein
+    URL: https://www.python-course.eu/python3_metaclasses.php
+    """
 
-class Cruise():
-    _instance = None
 
-    def __new__(cls, *args, **kw):
-        if cls._instance is None:
-            cls._instance = object.__new__(cls, *args, **kw)
-        return cls._instance
+class Cruise(metaclass=Singleton):
+    """
+    This is to define the plot of cruise map.
+    """
 
     def __init__(self, cruise_centerx, cruise_centery):
         self.centerx = cruise_centerx
@@ -29,6 +38,10 @@ class Cruise():
 
 
 class Point:
+    """
+    This is to define individual's activity. A person is a point on the cruise plot.
+    """
+
     def __init__(self, loc_x, loc_y):
         self.x = loc_x
         self.y = loc_y
@@ -42,12 +55,9 @@ class Point:
         self.y = loc_y
 
 
-class Bed:
-    def __init__(self, bed_number):
-        self.bed_number = bed_number
+class IsoRoom(metaclass=Singleton):
 
-
-class IsoRoom(metaclass = Singleton):
+    # JUST A REMINDER WE NEED SINGLETON HERE.
     # _instances = {}
     # def __call__(cls, *args, **kwargs):
     #     if cls not in cls._instances:
@@ -60,8 +70,16 @@ class IsoRoom(metaclass = Singleton):
         self.need_beds = 0
         self.beds_list = []
 
+    def bed(self, bed_number):
+        self.bed_number = bed_number
+
 
 class Person(Point):
+    """
+    This is to define the status and times of a person. It inhertes the Point class.
+    考不考虑和Point class 合并啊说真的
+    """
+
     def __init__(self, loc_x, loc_y, cruise):
         super(Person, self).__init__(loc_x, loc_y)
         self.cruise = cruise
@@ -77,11 +95,12 @@ class Person(Point):
 
 
 class Track:
+    """Tracking individuals' activities."""
+
     def __init__(self, loc_x, loc_y):
         self.x = loc_x
         self.y = loc_y
         self.static = False
-
 
 
 class Parameters:
@@ -127,15 +146,14 @@ class Parameters:
     normal_sigma = 1
     normal_t_sigma = 50
 
-
+# Fixed values different from Parameters.
 class Condition:
     healthy = 0
     susceptible = 1
-    latency = 2
+    latency = 2 # people who have contacted but are still in incubation period
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
-
 
 
 if __name__ == "__main__":
