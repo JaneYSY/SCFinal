@@ -6,6 +6,15 @@ import random
 import math
 
 
+class Singleton(type):
+    _instances = {}
+    
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
 class Cruise():
     _instance = None
 
@@ -38,13 +47,12 @@ class Bed:
         self.bed_number = bed_number
 
 
-class IsoRoom(metaclass=SingleTon):
-    _instance = None
-
-    def __new__(cls, *args, **kw):
-        if cls._instance is None:
-            cls._instance = object.__new__(cls, *args, **kw)
-        return cls._instance
+class IsoRoom(metaclass = Singleton):
+    # _instances = {}
+    # def __call__(cls, *args, **kwargs):
+    #     if cls not in cls._instances:
+    #         cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+    #     return cls._instances[cls]
 
     def __init__(self):
         self.occupied_beds = 0
@@ -73,6 +81,7 @@ class Track:
         self.x = loc_x
         self.y = loc_y
         self.static = False
+
 
 
 class Parameters:
