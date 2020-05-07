@@ -6,16 +6,14 @@ import random
 import math
 
 
-class SingleTon(object):
+class Cruise():
     _instance = None
 
-    def __new__(cls, *args, **kwargs):
+    def __new__(cls, *args, **kw):
         if cls._instance is None:
-            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+            cls._instance = object.__new__(cls, *args, **kw)
         return cls._instance
 
-
-class Cruise(metaclass=SingleTon):
     def __init__(self, cruise_centerx, cruise_centery):
         self.centerx = cruise_centerx
         self.centery = cruise_centery
@@ -41,6 +39,13 @@ class Bed:
 
 
 class IsoRoom(metaclass=SingleTon):
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
+
     def __init__(self):
         self.occupied_beds = 0
         self.free_beds = Parameters.iso_room_capacity
@@ -49,12 +54,12 @@ class IsoRoom(metaclass=SingleTon):
 
 
 class Person(Point):
-    def __init__(self,loc_x, loc_y, cruise):
+    def __init__(self, loc_x, loc_y, cruise):
         super(Person, self).__init__(loc_x, loc_y)
         self.cruise = cruise
         self.sigma = Parameters.normal_sigma
         self.t_sigma = Parameters.t_sigma
-        self.type = Condition.healthy
+        self.status = Condition.healthy
         self.infected_time = 0
         self.confirmed_time = 0
         self.dead_time = 0
@@ -70,7 +75,7 @@ class Track:
         self.static = False
 
 
-class Parameters():
+class Parameters:
     finish = False
     # total population on the cruise
     total_population = 2500
@@ -114,7 +119,7 @@ class Parameters():
     normal_t_sigma = 50
 
 
-class Condition():
+class Condition:
     healthy = 0
     susceptible = 1
     latency = 2
@@ -126,7 +131,7 @@ class Condition():
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    Params.
+    # Params.
     MainWindow = QtWidgets.QMainWindow()
     ui = UIWindow.Ui_MainWindow()
     ui.setupUi(MainWindow)
