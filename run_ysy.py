@@ -1,4 +1,4 @@
-mport UIWindow
+import UIWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 import sys
@@ -6,36 +6,36 @@ import random
 import math
 
 
-<<<<<<< HEAD
-class Singleton(type):
-    """
-    For some classes, only ONE instance is allowed. Singleton is to define here using metaclass, 
-    and metaclass to define the behavior of a class and its instance.
-=======
+# class Singleton(type):
+#     """
+#     For some classes, only ONE instance is allowed. Singleton is to define here using metaclass, 
+#     and metaclass to define the behavior of a class and its instance.
+#     """
+
+#     _instances = {}
+
+#     def __call__(cls, *args, **kwargs):
+#         if cls not in cls._instances:
+#             cls._instances[cls] = super(
+#                 Singleton, cls).__call__(*args, **kwargs)
+#         return cls._instances[cls]
+
+#     """ Title: Python Course: Metaclasses - Creating Singletons using Metaclasses
+#     Author: Bernd Klein
+#     URL: https://www.python-course.eu/python3_metaclasses.php
+#     """
+
+
 class Cruise:
-    _instance = None
->>>>>>> fc2ab09e594c7262034c1896568f9969d3f60e7b
-
-    """
-
-    _instances = {}
-
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(
-                Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
-
-    """ Title: Python Course: Metaclasses - Creating Singletons using Metaclasses
-    Author: Bernd Klein
-    URL: https://www.python-course.eu/python3_metaclasses.php
-    """
-
-
-class Cruise(metaclass=Singleton):
     """
     This is to define the plot of cruise map.
     """
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
 
     def __init__(self, cruise_centerx, cruise_centery):
         self.centerx = cruise_centerx
@@ -60,16 +60,6 @@ class Point:
         self.y = loc_y
 
 
-class IsoRoom(metaclass=Singleton):
-
-<<<<<<< HEAD
-    # JUST A REMINDER WE NEED SINGLETON HERE.
-    # _instances = {}
-    # def __call__(cls, *args, **kwargs):
-    #     if cls not in cls._instances:
-    #         cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-    #     return cls._instances[cls]
-=======
 class IsoRoom:
     _instance = None
 
@@ -77,7 +67,6 @@ class IsoRoom:
         if cls._instance is None:
             cls._instance = object.__new__(cls, *args, **kw)
         return cls._instance
->>>>>>> fc2ab09e594c7262034c1896568f9969d3f60e7b
 
     def __init__(self):
         self.occupied_beds = 0
