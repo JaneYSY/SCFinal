@@ -38,6 +38,7 @@ class Point:
 class Bed:
     def __init__(self, bed_number):
         self.bed_number = bed_number
+        self.occupied = False
 
 
 class IsoRoom:
@@ -50,24 +51,41 @@ class IsoRoom:
 
     def __init__(self):
         self.occupied_beds = 0
-        self.free_beds = Parameters.iso_room_capacity
+        self.available_beds = Parameters.iso_room_capacity
         self.need_beds = 0
         self.beds_list = []
+        for i in range(0, Parameters.iso_room_capacity):
+            self.beds_list.append(Bed(i))
+
+    def expand_cap(self, quantity=1):
+        last_num = self.beds_list[-1].bed_number
+        for i in range(0, quantity):
+            new_num = last_num + i + 1
+            self.beds_list.append(Bed(new_num))
+
+    def assign_bed(self):
+        for bed in self.beds_list:
+            if bed.occupied is False:
+                self.available_beds -= 1
+                bed.occupied = True
+                return bed
+
+    def vacate_bed(self, bed):
+        bed.occupied = False
+        self.available_beds += 1
+        return bed
 
 
 class Person(Point):
-    def __init__(self, loc_x, loc_y, cruise):
+    def __init__(self, loc_x, loc_y):
         super(Person, self).__init__(loc_x, loc_y)
-        self.cruise = cruise
-        self.sigma = Parameters.normal_sigma
-        self.t_sigma = Parameters.t_sigma
         self.status = Condition.healthy
         self.infected_time = 0
         self.confirmed_time = 0
         self.dead_time = 0
         self.need_iso = False
         self.relocation = None
-        self.assigned_bed = None
+        self.bed_assigned = None
 
 
 class Parameters:
@@ -79,7 +97,7 @@ class Parameters:
 
     # size of cruise, for plotting
     cruise_width = 1000
-    cruise_length = 1000
+    cruise_hight = 1000
     cruise_centerx = 500
     cruise_centery = 500
 
@@ -103,7 +121,6 @@ class Parameters:
     iso_latency = 2
 
     iso_room_capacity = 100
-    iso_room_size = 0
 
     # safe distance of virus
     safe_distance = 2
@@ -117,10 +134,11 @@ class Parameters:
 class Condition:
     healthy = 0
     susceptible = 1
-    latency = 2
+    incubation = 2
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
+
 
 
 class Track:
@@ -138,6 +156,7 @@ class LiveWindow(QtCore.QThread):
         while Parameters.game_over is False:
             QtCore.QThread.msleep(100)
             Parameters.current_day += 0.1
+            print(Parameters.current_day)
 
 
 class Pool:
@@ -151,7 +170,19 @@ class Pool:
     def __init__(self):
         self.all = []
         self.incubation = []
+        for i in range(0, Parameters.total_population):
+            loc_x = random.uniform(0, Parameters.cruise_width)
+            loc_y = random.uniform(0, Parameters.cruise_hight)
+            self.all.append(Person(loc_x, loc_y))
 
+    def count_condition(self, condition_code=None):
+        if condition_code == None:
+            return len(self.all)
+        count = 0
+        for person in self.all:
+            if person.status == condition_code:
+                count += 1
+        return count
 
 
 if __name__ == "__main__":
