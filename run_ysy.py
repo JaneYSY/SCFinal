@@ -62,13 +62,10 @@ class IsoRoom:
 
 
 class Person(Point):
-<<<<<<< HEAD
-=======
     """
     Person inherits from Point class. It describes each person's condition [individual condition].
     """
 
->>>>>>> 7d8a5bdb44fe32d7a9096deb3d0ff02ea38a9fcf
     def __init__(self, loc_x, loc_y):
         super(Person, self).__init__(loc_x, loc_y)
         self.status = Condition.healthy
@@ -100,14 +97,11 @@ class Parameters:
     fatal_rate = 0.08
     trans_prob = 0.8
 
-    # days take to die
-    death_period = 15
+    
+    death_period = 15  # days take to die
+    death_period_var = 15  # variance of days to die
 
-    # variance of days to die
-    death_period_var = 15
-
-    # virus incubation period
-    incubation_period = 7
+    incubation_period = 7  # virus incubation period
 
     # response latency - delay of a sick person getting isolation
     iso_latency = 2
@@ -125,11 +119,7 @@ class Parameters:
 class Condition:
     healthy = 0
     susceptible = 1
-<<<<<<< HEAD
-    incubation = 2
-=======
     latency = 2  # incubation period
->>>>>>> 7d8a5bdb44fe32d7a9096deb3d0ff02ea38a9fcf
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
