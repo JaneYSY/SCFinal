@@ -3,14 +3,26 @@ import random
 
 
 class Singleton(type):
-    __instance = None
+    _instances = {}
 
-    def __new__(cls, *args, **kwargs):
-        if cls.__instance is None:
-            cls.__instance = super(Singleton, cls).__new__(
-                cls, *args, **kwargs)
-        return cls.__instance
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(
+                Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
 
+class IsoRoom(metaclass = Singleton):
+    # _instances = {}
+    # def __call__(cls, *args, **kwargs):
+    #     if cls not in cls._instances:
+    #         cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
+    #     return cls._instances[cls]
+
+    def __init__(self):
+        self.occupied_beds = 0
+        self.free_beds = Parameters.iso_room_capacity
+        self.need_beds = 0
+        self.beds_list = []
 
 class Individual():
     def __init__(self, x, y):
@@ -23,10 +35,10 @@ class Individual():
 
     def person(self, x, y):
 
-    	# variance of movement
+        # variance of movement
         self.sigma = moving_sigma
 
-        # status: healthy, 
+        # status: healthy,
         self.status = healthy
 
         # the day# a person is infected
@@ -42,7 +54,7 @@ class Individual():
         self.isolated = False
 
         # if a person reaches his next stop
-    	self.arrival = False
+        self.arrival = False
 
 
 '''

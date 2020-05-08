@@ -1,11 +1,12 @@
 import UIWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import *
 import sys
 import random
 import math
+import numpy as np
 
 
+'''
 class Cruise:
     _instance = None
 
@@ -17,6 +18,7 @@ class Cruise:
     def __init__(self, cruise_centerx, cruise_centery):
         self.centerx = cruise_centerx
         self.centery = cruise_centery
+'''
 
 
 class Point:
@@ -68,25 +70,18 @@ class Person(Point):
         self.assigned_bed = None
 
 
-class Track:
-    def __init__(self, loc_x, loc_y):
-        self.x = loc_x
-        self.y = loc_y
-        self.static = False
-
-
 class Parameters:
-    finish = False
+    game_over = False
     # total population on the cruise
-    total_population = 2500
+    total_population = 1000
 
-    current_time = 1  # by day
+    current_day = 1
 
     # size of cruise, for plotting
-    cruise_width = 500
-    cruise_length = 2000
-    cruise_centerx = 250
-    cruise_centery = 1000
+    cruise_width = 1000
+    cruise_length = 1000
+    cruise_centerx = 500
+    cruise_centery = 500
 
     # Number of people who are infected (brought the disease on board)
     patients_zero = 5
@@ -101,8 +96,8 @@ class Parameters:
     # variance of days to die
     death_period_var = 15
 
-    # virus latency period
-    latency_period = 7
+    # virus incubation period
+    incubation_period = 7
 
     # response latency - delay of a sick person getting isolation
     iso_latency = 2
@@ -115,8 +110,8 @@ class Parameters:
 
     flow_intention = 3
 
-    normal_sigma = 1
-    normal_t_sigma = 50
+    # normal_sigma = 1
+    # normal_t_sigma = 50
 
 
 class Condition:
@@ -128,14 +123,45 @@ class Condition:
     death = 5  # dead people, location frozen, cannot transmit
 
 
+class Track:
+    def __init__(self, loc_x, loc_y):
+        self.x = loc_x
+        self.y = loc_y
+        self.static = False
+
+
+class LiveWindow(QtCore.QThread):
+    def __init__(self):
+        super(LiveWindow, self).__init__()
+
+    def run(self):
+        while Parameters.game_over is False:
+            QtCore.QThread.msleep(100)
+            Parameters.current_day += 0.1
+
+
+class Pool:
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
+
+    def __init__(self):
+        self.all = []
+        self.incubation = []
+
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    # Params.
-    MainWindow = QtWidgets.QMainWindow()
+    Parameters.app = app
+    main = QtWidgets.QMainWindow()
     ui = UIWindow.Ui_MainWindow()
-    ui.setupUi(MainWindow)
-
-    MainWindow.show()
+    ui.setupUi(main)
+    live = LiveWindow()
+    live.start()
+    main.show()
 
     sys.exit(app.exec_())
