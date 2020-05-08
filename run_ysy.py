@@ -8,7 +8,7 @@ import math
 
 # class Singleton(type):
 #     """
-#     For some classes, only ONE instance is allowed. Singleton is to define here using metaclass, 
+#     For some classes, only ONE instance is allowed. Singleton is to define here using metaclass,
 #     and metaclass to define the behavior of a class and its instance.
 #     """
 
@@ -151,10 +151,12 @@ class Parameters:
     normal_t_sigma = 50
 
 # Fixed values different from Parameters.
+
+
 class Condition:
     healthy = 0
     susceptible = 1
-    latency = 2 # people who have contacted but are still in incubation period
+    latency = 2  # people who have contacted but are still in incubation period
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
