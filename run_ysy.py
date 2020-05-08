@@ -62,6 +62,13 @@ class IsoRoom:
 
 
 class Person(Point):
+<<<<<<< HEAD
+=======
+    """
+    Person inherits from Point class. It describes each person's condition [individual condition].
+    """
+
+>>>>>>> 7d8a5bdb44fe32d7a9096deb3d0ff02ea38a9fcf
     def __init__(self, loc_x, loc_y):
         super(Person, self).__init__(loc_x, loc_y)
         self.status = Condition.healthy
@@ -107,8 +114,7 @@ class Parameters:
 
     iso_room_capacity = 100
 
-    # safe distance of virus
-    safe_distance = 2
+    safe_distance = 2  # safe distance to prevent spreading
 
     flow_intention = 3
 
@@ -119,13 +125,21 @@ class Parameters:
 class Condition:
     healthy = 0
     susceptible = 1
+<<<<<<< HEAD
     incubation = 2
+=======
+    latency = 2  # incubation period
+>>>>>>> 7d8a5bdb44fe32d7a9096deb3d0ff02ea38a9fcf
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
 
 
 class Track:
+    """
+    Track person's movement.
+    """
+
     def __init__(self, loc_x, loc_y):
         self.x = loc_x
         self.y = loc_y
@@ -133,6 +147,11 @@ class Track:
 
 
 class LiveWindow(QtCore.QThread):
+    """
+    Refresh GUI window. 
+
+    """
+
     def __init__(self):
         super(LiveWindow, self).__init__()
 
@@ -144,6 +163,11 @@ class LiveWindow(QtCore.QThread):
 
 
 class Pool:
+    """
+    Pool of people and their conditions. Assigned in list.
+    """
+
+    # Singleton
     _instance = None
 
     def __new__(cls, *args, **kw):
@@ -152,8 +176,8 @@ class Pool:
         return cls._instance
 
     def __init__(self):
-        self.all = []
-        self.incubation = []
+        self.all = []  # List of all people
+        self.incubation = []  # List of people in incubation period
         for i in range(0, Parameters.total_population):
             loc_x = random.uniform(0, Parameters.cruise_width)
             loc_y = random.uniform(0, Parameters.cruise_hight)
