@@ -109,15 +109,11 @@ class Point:
 
 
 class Person(Point):
-<<<<<<< HEAD
-    def __init__(self, loc_x, loc_y):
-=======
     """
     Person inherits from Point class. It describes each person's condition [individual condition].
     """
 
-    def __init__(self, loc_x, loc_y, cruise):
->>>>>>> f5679331896ae67feaf8d1ca4898859d70ea7846
+    def __init__(self, loc_x, loc_y):
         super(Person, self).__init__(loc_x, loc_y)
         self.status = Condition.healthy
         self.infected_time = 0
@@ -156,8 +152,7 @@ class Parameters:
     iso_latency = 2  # response latency - delay of a sick person getting isolation
     iso_room_capacity = 100
 
-    # safe distance of virus
-    safe_distance = 2
+    safe_distance = 2  # safe distance to prevent spreading
 
     flow_intention = 3  # motivation for an individual to move on the cruise
 
@@ -172,18 +167,17 @@ class Condition:
 
     healthy = 0
     susceptible = 1
-<<<<<<< HEAD
-    incubation = 2
-=======
     latency = 2  # incubation period
->>>>>>> f5679331896ae67feaf8d1ca4898859d70ea7846
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
 
 
-
 class Track:
+    """
+    Track person's movement.
+    """
+
     def __init__(self, loc_x, loc_y):
         self.x = loc_x
         self.y = loc_y
@@ -191,6 +185,11 @@ class Track:
 
 
 class LiveWindow(QtCore.QThread):
+    """
+    Refresh GUI window. 
+
+    """
+
     def __init__(self):
         super(LiveWindow, self).__init__()
 
@@ -202,6 +201,11 @@ class LiveWindow(QtCore.QThread):
 
 
 class Pool:
+    """
+    Pool of people and their conditions. Assigned in list.
+    """
+
+    # Singleton
     _instance = None
 
     def __new__(cls, *args, **kw):
@@ -210,8 +214,8 @@ class Pool:
         return cls._instance
 
     def __init__(self):
-        self.all = []
-        self.incubation = []
+        self.all = []  # List of all people
+        self.incubation = []  # List of people in incubation period
         for i in range(0, Parameters.total_population):
             loc_x = random.uniform(0, Parameters.cruise_width)
             loc_y = random.uniform(0, Parameters.cruise_hight)
@@ -225,6 +229,7 @@ class Pool:
             if person.status == condition_code:
                 count += 1
         return count
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
