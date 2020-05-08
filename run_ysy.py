@@ -1,11 +1,12 @@
 import UIWindow
 from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import *
 import sys
 import random
 import math
+import numpy as np
 
 
+<<<<<<< HEAD
 # class Singleton(type):
 #     """
 #     For some classes, only ONE instance is allowed. Singleton is to define here using metaclass,
@@ -30,6 +31,10 @@ class Cruise:
     """
     This is to define the plot of cruise map.
     """
+=======
+'''
+class Cruise:
+>>>>>>> f157989a28a24f08579397867f29b28544909f89
     _instance = None
 
     def __new__(cls, *args, **kw):
@@ -40,13 +45,10 @@ class Cruise:
     def __init__(self, cruise_centerx, cruise_centery):
         self.centerx = cruise_centerx
         self.centery = cruise_centery
+'''
 
 
 class Point:
-    """
-    This is to define individual's activity. A person is a point on the cruise plot.
-    """
-
     def __init__(self, loc_x, loc_y):
         self.x = loc_x
         self.y = loc_y
@@ -60,6 +62,14 @@ class Point:
         self.y = loc_y
 
 
+<<<<<<< HEAD
+=======
+class Bed:
+    def __init__(self, bed_number):
+        self.bed_number = bed_number
+
+
+>>>>>>> f157989a28a24f08579397867f29b28544909f89
 class IsoRoom:
     _instance = None
 
@@ -74,16 +84,8 @@ class IsoRoom:
         self.need_beds = 0
         self.beds_list = []
 
-    def bed(self, bed_number):
-        self.bed_number = bed_number
-
 
 class Person(Point):
-    """
-    This is to define the status and times of a person. It inhertes the Point class.
-    考不考虑和Point class 合并啊说真的
-    """
-
     def __init__(self, loc_x, loc_y, cruise):
         super(Person, self).__init__(loc_x, loc_y)
         self.cruise = cruise
@@ -98,27 +100,18 @@ class Person(Point):
         self.assigned_bed = None
 
 
-class Track:
-    """Tracking individuals' activities."""
-
-    def __init__(self, loc_x, loc_y):
-        self.x = loc_x
-        self.y = loc_y
-        self.static = False
-
-
 class Parameters:
-    finish = False
+    game_over = False
     # total population on the cruise
-    total_population = 2500
+    total_population = 1000
 
-    current_time = 1  # by day
+    current_day = 1
 
     # size of cruise, for plotting
-    cruise_width = 500
-    cruise_length = 2000
-    cruise_centerx = 250
-    cruise_centery = 1000
+    cruise_width = 1000
+    cruise_length = 1000
+    cruise_centerx = 500
+    cruise_centery = 500
 
     # Number of people who are infected (brought the disease on board)
     patients_zero = 5
@@ -133,8 +126,8 @@ class Parameters:
     # variance of days to die
     death_period_var = 15
 
-    # virus latency period
-    latency_period = 7
+    # virus incubation period
+    incubation_period = 7
 
     # response latency - delay of a sick person getting isolation
     iso_latency = 2
@@ -147,9 +140,11 @@ class Parameters:
 
     flow_intention = 3
 
-    normal_sigma = 1
-    normal_t_sigma = 50
+    # normal_sigma = 1
+    # normal_t_sigma = 50
 
+
+<<<<<<< HEAD
 # Fixed values different from Parameters.
 
 
@@ -157,18 +152,56 @@ class Condition:
     healthy = 0
     susceptible = 1
     latency = 2  # people who have contacted but are still in incubation period
+=======
+class Condition:
+    healthy = 0
+    susceptible = 1
+    latency = 2
+>>>>>>> f157989a28a24f08579397867f29b28544909f89
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
 
 
+class Track:
+    def __init__(self, loc_x, loc_y):
+        self.x = loc_x
+        self.y = loc_y
+        self.static = False
+
+
+class LiveWindow(QtCore.QThread):
+    def __init__(self):
+        super(LiveWindow, self).__init__()
+
+    def run(self):
+        while Parameters.game_over is False:
+            QtCore.QThread.msleep(100)
+            Parameters.current_day += 0.1
+
+
+class Pool:
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
+
+    def __init__(self):
+        self.all = []
+        self.incubation = []
+
+
+
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    # Params.
-    MainWindow = QtWidgets.QMainWindow()
+    Parameters.app = app
+    main = QtWidgets.QMainWindow()
     ui = UIWindow.Ui_MainWindow()
-    ui.setupUi(MainWindow)
-
-    MainWindow.show()
+    ui.setupUi(main)
+    live = LiveWindow()
+    live.start()
+    main.show()
 
     sys.exit(app.exec_())
