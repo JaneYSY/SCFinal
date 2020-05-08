@@ -109,7 +109,7 @@ class Parameters:
 
     safe_distance = 2  # safe distance to prevent spreading
 
-    flow_intention = 3
+    flow_intention = 3 # [1,5]
 
     # normal_sigma = 1
     # normal_t_sigma = 50
