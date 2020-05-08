@@ -6,7 +6,6 @@ import math
 import numpy as np
 
 
-<<<<<<< HEAD
 # class Singleton(type):
 #     """
 #     For some classes, only ONE instance is allowed. Singleton is to define here using metaclass,
@@ -27,21 +26,13 @@ import numpy as np
 #     """
 
 
-class Cruise:
-    """
-    This is to define the plot of cruise map.
-    """
-=======
 '''
 class Cruise:
->>>>>>> f157989a28a24f08579397867f29b28544909f89
     _instance = None
-
     def __new__(cls, *args, **kw):
         if cls._instance is None:
             cls._instance = object.__new__(cls, *args, **kw)
         return cls._instance
-
     def __init__(self, cruise_centerx, cruise_centery):
         self.centerx = cruise_centerx
         self.centery = cruise_centery
@@ -62,14 +53,11 @@ class Point:
         self.y = loc_y
 
 
-<<<<<<< HEAD
-=======
 class Bed:
     def __init__(self, bed_number):
         self.bed_number = bed_number
 
 
->>>>>>> f157989a28a24f08579397867f29b28544909f89
 class IsoRoom:
     _instance = None
 
@@ -144,20 +132,10 @@ class Parameters:
     # normal_t_sigma = 50
 
 
-<<<<<<< HEAD
-# Fixed values different from Parameters.
-
-
-class Condition:
-    healthy = 0
-    susceptible = 1
-    latency = 2  # people who have contacted but are still in incubation period
-=======
 class Condition:
     healthy = 0
     susceptible = 1
     latency = 2
->>>>>>> f157989a28a24f08579397867f29b28544909f89
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
@@ -191,7 +169,6 @@ class Pool:
     def __init__(self):
         self.all = []
         self.incubation = []
-
 
 
 if __name__ == "__main__":
