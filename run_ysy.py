@@ -97,7 +97,6 @@ class Parameters:
     fatal_rate = 0.08
     trans_prob = 0.8
 
-    
     death_period = 15  # days take to die
     death_period_var = 15  # variance of days to die
 
@@ -174,6 +173,18 @@ class Pool:
             self.all.append(Person(loc_x, loc_y))
 
     def count_status(self, condition_code=None):
+        """
+        This is to count people in a particular condition.
+        **parameter**
+            condition_code: *int* starts with None Type
+                See class Condition. Condition code of people.
+        **output**
+            len(self.all): *int*
+                When no condition code is assigned, return the list of all population.
+            count: *int*
+                Number of people in a particular condition.
+
+        """
         if condition_code is None:
             return len(self.all)
         count = 0
