@@ -20,10 +20,10 @@ import numpy as np
 #                 Singleton, cls).__call__(*args, **kwargs)
 #         return cls._instances[cls]
 
-#     """ Title: Python Course: Metaclasses - Creating Singletons using Metaclasses
-#     Author: Bernd Klein
-#     URL: https://www.python-course.eu/python3_metaclasses.php
-#     """
+    """ Title: Python Course: Metaclasses - Creating Singletons using Metaclasses
+    Author: Bernd Klein
+    URL: https://www.python-course.eu/python3_metaclasses.php
+    We decide to put the Singleton into each targeted class. """
 
 
 '''
@@ -39,7 +39,41 @@ class Cruise:
 '''
 
 
+class Bed:
+    """
+    Number of bed.
+    Bed and IsoRoom are separated is because IsoRoom is Singleton for metaclass.
+    """
+
+    def __init__(self, bed_number):
+        self.bed_number = bed_number
+
+
+class IsoRoom:
+
+    # Singleton
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
+
+    def __init__(self):
+        self.occupied_beds = 0
+        self.free_beds = Parameters.iso_room_capacity
+        self.need_beds = 0
+        # A list of bed to assign individual bed's condition.
+        self.beds_list = []
+
+
 class Point:
+    """
+    This is to describe invididual as points.
+    Points move with velocity.
+    Points move from and to location which are spots (x, y) on the plot. 
+    """
+
     def __init__(self, loc_x, loc_y):
         self.x = loc_x
         self.y = loc_y
@@ -53,27 +87,11 @@ class Point:
         self.y = loc_y
 
 
-class Bed:
-    def __init__(self, bed_number):
-        self.bed_number = bed_number
-
-
-class IsoRoom:
-    _instance = None
-
-    def __new__(cls, *args, **kw):
-        if cls._instance is None:
-            cls._instance = object.__new__(cls, *args, **kw)
-        return cls._instance
-
-    def __init__(self):
-        self.occupied_beds = 0
-        self.free_beds = Parameters.iso_room_capacity
-        self.need_beds = 0
-        self.beds_list = []
-
-
 class Person(Point):
+    """
+    Person inherits from Point class. It describes each person's condition [individual condition].
+    """
+
     def __init__(self, loc_x, loc_y, cruise):
         super(Person, self).__init__(loc_x, loc_y)
         self.cruise = cruise
@@ -89,13 +107,14 @@ class Person(Point):
 
 
 class Parameters:
+    """
+    Parameters to be called in refreshing everyday's change. [Overall condition]
+    """
     game_over = False
-    # total population on the cruise
-    total_population = 1000
-
+    total_population = 1000  # total population on the cruise
     current_day = 1
 
-    # size of cruise, for plotting
+    # Size of cruise, for plotting
     cruise_width = 1000
     cruise_length = 1000
     cruise_centerx = 500
@@ -104,38 +123,35 @@ class Parameters:
     # Number of people who are infected (brought the disease on board)
     patients_zero = 5
 
-    # rate of death for infected patients
-    fatal_rate = 0.08
-    trans_prob = 0.8
+    fatal_rate = 0.08  # rate of death for infected patients
+    trans_prob = 0.8  # if you are in contact with an infected person, the chance you'll get sick
 
-    # days take to die
-    death_period = 15
+    death_period = 15  # days take to die
+    death_period_var = 15  # variance of days to die
 
-    # variance of days to die
-    death_period_var = 15
+    incubation_period = 7  # virus incubation period
 
-    # virus incubation period
-    incubation_period = 7
-
-    # response latency - delay of a sick person getting isolation
-    iso_latency = 2
-
+    iso_latency = 2  # response latency - delay of a sick person getting isolation
     iso_room_capacity = 100
     iso_room_size = 0
 
     # safe distance of virus
     safe_distance = 2
 
-    flow_intention = 3
+    flow_intention = 3  # motivation for an individual to move on the cruise
 
     # normal_sigma = 1
     # normal_t_sigma = 50
 
 
 class Condition:
+    """
+    Condition of each person.
+    """
+
     healthy = 0
     susceptible = 1
-    latency = 2
+    latency = 2  # incubation period
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
