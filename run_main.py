@@ -91,7 +91,11 @@ class Pool:
         return cls._instance
 
     def __init__(self):
+<<<<<<< HEAD
         self.all = []  # List of all persons
+=======
+        self.all = []  # List of all people
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
         self.incubation = []  # List of people in incubation period
         for i in range(0, Parameters.total_population):
             loc_x = random.uniform(0, Parameters.cruise_width)
@@ -99,6 +103,21 @@ class Pool:
             self.all.append(Person(loc_x, loc_y))
 
     def count_status(self, condition_code=None):
+<<<<<<< HEAD
+=======
+        """
+        This is to count people in a particular condition.
+        **parameter**
+            condition_code: *int* starts with None Type
+                See class Condition. Condition code of people.
+        **output**
+            len(self.all): *int*
+                When no condition code is assigned, return the list of all population.
+            count: *int*
+                Number of people in a particular condition.
+
+        """
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
         if condition_code is None:
             return len(self.all)
         count = 0
@@ -115,15 +134,22 @@ class Parameters:
 
     current_day = 1
 
+<<<<<<< HEAD
     # size of cruise area, for plotting
+=======
+    # size of cruise, for plotting
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
     cruise_width = 1000
     cruise_hight = 1000
     cruise_centerx = 500
     cruise_centery = 500
 
+<<<<<<< HEAD
     # size of each person, for plotting
     dot_size = 6
 
+=======
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
     # Number of people who are infected (brought the disease on board)
     patients_zero = 5
 
@@ -152,7 +178,11 @@ class Parameters:
 class Condition:
     healthy = 0
     susceptible = 1
+<<<<<<< HEAD
     incuabtion = 2  # incubation period people
+=======
+    latency = 2  # incubation period
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
@@ -185,12 +215,17 @@ class LiveWindow(QtCore.QThread):
             print(Parameters.current_day)
 
 
+<<<<<<< HEAD
 class Plot(QtWidgets.QWidget):
+=======
+class Plot(QtWidgets.Qwidget):
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
     def __init__(self, ui):
         super(Plot, self).__init__(ui.centralwidget)
         self.ui = ui
         height = self.parent().parent().size().height()
         width = self.parent().parent().size().width()
+<<<<<<< HEAD
         self.setGeometry(QtCore.QRect(10, 10, 1010, 1010))
 
     def paintEvent(self, event):
@@ -271,6 +306,9 @@ class Pool:
             if person.status == condition_code:
                 count += 1
         return count
+=======
+        self.setGeometry(QRect())
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
 
 
 if __name__ == "__main__":
@@ -279,7 +317,10 @@ if __name__ == "__main__":
     main = QtWidgets.QMainWindow()
     ui = UIWindow.Ui_MainWindow()
     ui.setupUi(main)
+<<<<<<< HEAD
     plot = Plot(ui)
+=======
+>>>>>>> 7f5edff1989df46e79597361efb94556c85a1996
     live = LiveWindow()
     live.start()
     main.show()

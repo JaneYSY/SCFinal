@@ -62,11 +62,20 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="suffix">
+        <string/>
+       </property>
        <property name="minimum">
         <number>1</number>
        </property>
+       <property name="maximum">
+        <number>2500</number>
+       </property>
        <property name="value">
-        <number>1</number>
+        <number>200</number>
+       </property>
+       <property name="displayIntegerBase">
+        <number>10</number>
        </property>
       </widget>
      </item>
@@ -93,7 +102,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Refresh</string>
+        <string>Update</string>
        </property>
       </widget>
      </item>
@@ -139,7 +148,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Refresh</string>
+        <string>Update</string>
        </property>
       </widget>
      </item>
@@ -151,7 +160,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Refresh</string>
+        <string>Update</string>
        </property>
       </widget>
      </item>
