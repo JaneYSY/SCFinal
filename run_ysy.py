@@ -62,13 +62,10 @@ class IsoRoom:
 
 
 class Person(Point):
-<<<<<<< HEAD
-=======
     """
     Person inherits from Point class. It describes each person's condition [individual condition].
     """
 
->>>>>>> 7d8a5bdb44fe32d7a9096deb3d0ff02ea38a9fcf
     def __init__(self, loc_x, loc_y):
         super(Person, self).__init__(loc_x, loc_y)
         self.status = Condition.healthy
@@ -78,6 +75,37 @@ class Person(Point):
         self.need_iso = False
         self.relocation = None
         self.bed_assigned = None
+
+
+class Pool:
+    """
+    Pool of people and their conditions. Assigned in list.
+    """
+
+    # Singleton
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
+
+    def __init__(self):
+        self.all = []  # List of all people
+        self.incubation = []  # List of people in incubation period
+        for i in range(0, Parameters.total_population):
+            loc_x = random.uniform(0, Parameters.cruise_width)
+            loc_y = random.uniform(0, Parameters.cruise_hight)
+            self.all.append(Person(loc_x, loc_y))
+
+    def count_status(self, condition_code=None):
+        if condition_code is None:
+            return len(self.all)
+        count = 0
+        for person in self.all:
+            if person.status == condition_code:
+                count += 1
+        return count
 
 
 class Parameters:
@@ -125,11 +153,7 @@ class Parameters:
 class Condition:
     healthy = 0
     susceptible = 1
-<<<<<<< HEAD
     incubation = 2
-=======
-    latency = 2  # incubation period
->>>>>>> 7d8a5bdb44fe32d7a9096deb3d0ff02ea38a9fcf
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
@@ -148,7 +172,7 @@ class Track:
 
 class LiveWindow(QtCore.QThread):
     """
-    Refresh GUI window. 
+    Refresh GUI window.
 
     """
 
@@ -160,37 +184,6 @@ class LiveWindow(QtCore.QThread):
             QtCore.QThread.msleep(100)
             Parameters.current_day += 0.1
             print(Parameters.current_day)
-
-
-class Pool:
-    """
-    Pool of people and their conditions. Assigned in list.
-    """
-
-    # Singleton
-    _instance = None
-
-    def __new__(cls, *args, **kw):
-        if cls._instance is None:
-            cls._instance = object.__new__(cls, *args, **kw)
-        return cls._instance
-
-    def __init__(self):
-        self.all = []  # List of all people
-        self.incubation = []  # List of people in incubation period
-        for i in range(0, Parameters.total_population):
-            loc_x = random.uniform(0, Parameters.cruise_width)
-            loc_y = random.uniform(0, Parameters.cruise_hight)
-            self.all.append(Person(loc_x, loc_y))
-
-    def count_status(self, condition_code=None):
-        if condition_code is None:
-            return len(self.all)
-        count = 0
-        for person in self.all:
-            if person.status == condition_code:
-                count += 1
-        return count
 
 
 if __name__ == "__main__":
