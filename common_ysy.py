@@ -11,6 +11,7 @@ class Singleton(type):
                 Singleton, cls).__call__(*args, **kwargs)
         return cls._instances[cls]
 
+
 class IsoRoom(metaclass = Singleton):
     # _instances = {}
     # def __call__(cls, *args, **kwargs):
