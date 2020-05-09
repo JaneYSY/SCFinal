@@ -77,6 +77,49 @@ class Person(Point):
         self.bed_assigned = None
 
 
+class Pool:
+    """
+    Pool of people and their conditions. Assigned in list.
+    """
+
+    # Singleton
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
+
+    def __init__(self):
+        self.all = []  # List of all people
+        self.incubation = []  # List of people in incubation period
+        for i in range(0, Parameters.total_population):
+            loc_x = random.uniform(0, Parameters.cruise_width)
+            loc_y = random.uniform(0, Parameters.cruise_hight)
+            self.all.append(Person(loc_x, loc_y))
+
+    def count_status(self, condition_code=None):
+        """
+        This is to count people in a particular condition.
+        **parameter**
+            condition_code: *int* starts with None Type
+                See class Condition. Condition code of people.
+        **output**
+            len(self.all): *int*
+                When no condition code is assigned, return the list of all population.
+            count: *int*
+                Number of people in a particular condition.
+
+        """
+        if condition_code is None:
+            return len(self.all)
+        count = 0
+        for person in self.all:
+            if person.status == condition_code:
+                count += 1
+        return count
+
+        
 class Parameters:
     game_over = False
     # total population on the cruise
@@ -159,47 +202,6 @@ class Plot(QtWidgets.Qwidget):
         width = self.parent().parent().size().width()
         self.setGeometry(QRect())
 
-class Pool:
-    """
-    Pool of people and their conditions. Assigned in list.
-    """
-
-    # Singleton
-    _instance = None
-
-    def __new__(cls, *args, **kw):
-        if cls._instance is None:
-            cls._instance = object.__new__(cls, *args, **kw)
-        return cls._instance
-
-    def __init__(self):
-        self.all = []  # List of all people
-        self.incubation = []  # List of people in incubation period
-        for i in range(0, Parameters.total_population):
-            loc_x = random.uniform(0, Parameters.cruise_width)
-            loc_y = random.uniform(0, Parameters.cruise_hight)
-            self.all.append(Person(loc_x, loc_y))
-
-    def count_status(self, condition_code=None):
-        """
-        This is to count people in a particular condition.
-        **parameter**
-            condition_code: *int* starts with None Type
-                See class Condition. Condition code of people.
-        **output**
-            len(self.all): *int*
-                When no condition code is assigned, return the list of all population.
-            count: *int*
-                Number of people in a particular condition.
-
-        """
-        if condition_code is None:
-            return len(self.all)
-        count = 0
-        for person in self.all:
-            if person.status == condition_code:
-                count += 1
-        return count
 
 
 if __name__ == "__main__":
