@@ -128,14 +128,10 @@ class Parameters:
     fatal_rate = 0.08
     trans_prob = 0.8
 
-    # days take to die
-    death_period = 15
+    death_period = 15  # days take to die
+    death_period_var = 15  # variance of days to die
 
-    # variance of days to die
-    death_period_var = 15
-
-    # virus incubation period
-    incubation_period = 7
+    incubation_period = 7  # virus incubation period
 
     # response latency - delay of a sick person getting isolation
     iso_latency = 2
@@ -144,7 +140,7 @@ class Parameters:
 
     safe_distance = 2  # safe distance to prevent spreading
 
-    flow_intention = 3
+    flow_intention = 3 # [1,5]
 
     # normal_sigma = 1
     # normal_t_sigma = 50
@@ -153,7 +149,11 @@ class Parameters:
 class Condition:
     healthy = 0
     susceptible = 1
+<<<<<<< HEAD
     incubation = 2
+=======
+    latency = 2  # incubation period
+>>>>>>> 7bc1ab4aabcbd815d4758205a8d924386c75b53c
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
@@ -186,6 +186,52 @@ class LiveWindow(QtCore.QThread):
             print(Parameters.current_day)
 
 
+<<<<<<< HEAD
+=======
+class Pool:
+    """
+    Pool of people and their conditions. Assigned in list.
+    """
+
+    # Singleton
+    _instance = None
+
+    def __new__(cls, *args, **kw):
+        if cls._instance is None:
+            cls._instance = object.__new__(cls, *args, **kw)
+        return cls._instance
+
+    def __init__(self):
+        self.all = []  # List of all people
+        self.incubation = []  # List of people in incubation period
+        for i in range(0, Parameters.total_population):
+            loc_x = random.uniform(0, Parameters.cruise_width)
+            loc_y = random.uniform(0, Parameters.cruise_hight)
+            self.all.append(Person(loc_x, loc_y))
+
+    def count_status(self, condition_code=None):
+        """
+        This is to count people in a particular condition.
+        **parameter**
+            condition_code: *int* starts with None Type
+                See class Condition. Condition code of people.
+        **output**
+            len(self.all): *int*
+                When no condition code is assigned, return the list of all population.
+            count: *int*
+                Number of people in a particular condition.
+
+        """
+        if condition_code is None:
+            return len(self.all)
+        count = 0
+        for person in self.all:
+            if person.status == condition_code:
+                count += 1
+        return count
+
+
+>>>>>>> 7bc1ab4aabcbd815d4758205a8d924386c75b53c
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     Parameters.app = app
