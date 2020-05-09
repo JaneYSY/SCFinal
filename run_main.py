@@ -149,11 +149,7 @@ class Parameters:
 class Condition:
     healthy = 0
     susceptible = 1
-<<<<<<< HEAD
-    incubation = 2
-=======
     latency = 2  # incubation period
->>>>>>> 7bc1ab4aabcbd815d4758205a8d924386c75b53c
     sick = 3
     isolated = 4  # isolated people, location frozen
     death = 5  # dead people, location frozen, cannot transmit
@@ -186,8 +182,6 @@ class LiveWindow(QtCore.QThread):
             print(Parameters.current_day)
 
 
-<<<<<<< HEAD
-=======
 class Pool:
     """
     Pool of people and their conditions. Assigned in list.
@@ -231,7 +225,6 @@ class Pool:
         return count
 
 
->>>>>>> 7bc1ab4aabcbd815d4758205a8d924386c75b53c
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     Parameters.app = app
