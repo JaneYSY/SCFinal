@@ -182,6 +182,14 @@ class LiveWindow(QtCore.QThread):
             print(Parameters.current_day)
 
 
+class Plot(QtWidgets.Qwidget):
+    def __init__(self, ui):
+        super(Plot, self).__init__(ui.centralwidget)
+        self.ui = ui
+        height = self.parent().parent().size().height()
+        width = self.parent().parent().size().width()
+        self.setGeometry(QRect())
+
 class Pool:
     """
     Pool of people and their conditions. Assigned in list.
