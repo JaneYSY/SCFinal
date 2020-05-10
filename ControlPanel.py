@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(822, 419)
+        MainWindow.resize(822, 327)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -94,6 +94,7 @@ class Ui_MainWindow(object):
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
+<<<<<<< HEAD:ControlPanel.py
         sizePolicy.setHeightForWidth(self.DistBox.sizePolicy().hasHeightForWidth())
         self.DistBox.setSizePolicy(sizePolicy)
         self.DistBox.setDecimals(1)
@@ -109,6 +110,17 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.ExitGame.setFont(font)
         self.ExitGame.setObjectName("ExitGame")
+=======
+        sizePolicy.setHeightForWidth(self.FlowIntentionBox.sizePolicy().hasHeightForWidth())
+        self.FlowIntentionBox.setSizePolicy(sizePolicy)
+        self.FlowIntentionBox.setDecimals(1)
+        self.FlowIntentionBox.setMinimum(1.0)
+        self.FlowIntentionBox.setMaximum(5.0)
+        self.FlowIntentionBox.setSingleStep(0.5)
+        self.FlowIntentionBox.setProperty("value", 5.0)
+        self.FlowIntentionBox.setObjectName("FlowIntentionBox")
+        self.gridLayout_2.addWidget(self.FlowIntentionBox, 1, 2, 1, 1)
+>>>>>>> d32ab672b49d4ab5ae7e817c17769c740c0de9fe:GameControlPanel.py
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 822, 26))
@@ -124,6 +136,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+<<<<<<< HEAD:ControlPanel.py
         self.label.setText(_translate("MainWindow", "Add Isolation Beds"))
         self.label_2.setText(_translate("MainWindow", " Update Mean Travel Dist"))
         self.TransUpdate.setText(_translate("MainWindow", "Update"))
@@ -131,6 +144,14 @@ class Ui_MainWindow(object):
         self.DistUpdate.setText(_translate("MainWindow", "Update"))
         self.BedUpdate.setText(_translate("MainWindow", "Update"))
         self.ExitGame.setText(_translate("MainWindow", "Exit Game"))
+=======
+        self.label.setText(_translate("MainWindow", "Isolation Beds"))
+        self.label_2.setText(_translate("MainWindow", "Flow Intention"))
+        self.InfectionRateUpdateButton.setText(_translate("MainWindow", "Update"))
+        self.label_3.setText(_translate("MainWindow", "Infection Rate"))
+        self.FlowIntentionUpdateButton.setText(_translate("MainWindow", "Update"))
+        self.BedUpdateButton.setText(_translate("MainWindow", "Update"))
+>>>>>>> d32ab672b49d4ab5ae7e817c17769c740c0de9fe:GameControlPanel.py
 
 
 if __name__ == "__main__":

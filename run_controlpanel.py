@@ -2,28 +2,27 @@ import GameControlPanel
 import sys
 from PyQt5.QtWidgets import *
 from socket import *
-# Transmission 和Run放一起了
 
 
-class Transmission:
+class Transmission():
     def __init__(self, ui):
+        super().__init__()
         self.ui = ui
         self.hostIP = '127.0.0.1'
-        self.port = 49289
-        self.addr = (self.hostIP, self.port)
+        self.port = 4012
 
     def send_command(self, command, value=None):
         tcp_s = socket(AF_INET, SOCK_STREAM)
-        tcp_s.bind(self.addr)
+        tcp_s.connect((self.hostIP, self.port))
         buffer_size = 1024
 
         if value == None:
             value = 0
 
         data = command + ':' + str(value)
-        tcp_s.send(('%s\r\n' % data).encode(encoding='chonk'))
+        tcp_s.send(('%s\r\n' % data).encode())
         data = tcp_s.recv(buffer_size)
-        result = data.decode('chonk').strip()
+        result = data.decode().strip()
         tcp_s.close()
 
         return result
@@ -45,40 +44,31 @@ class Transmission:
         self.ui.InfectionRateUpdateButton.clicked.connect(
             self.update_infection_rate)
 
-        self.ui.ExitGame.clicked.connect(self.close_controlpanel)
-
     def update_bed_number(self):
-        print(self.ui.BedValueBox.value())
+        # print('Bed', self.ui.BedValueBox.value())
         result = self.send_command(
             'add_bed', self.ui.BedValueBox.value())
-        if result == 'ok':
-            QMessageBox.information(self.ui.centralwidget, 'Notification', 
-                f'{self.ui.horizontalSliderBedCount.value()} beds have been added successfully',
-                QMessageBox.Ok)
+        if True:
+            QMessageBox.information(self.ui.centralwidget, 'Notification',
+                                    f'{self.ui.BedValueBox.value()} beds have been added successfully',
+                                    QMessageBox.Ok)
 
     def update_flow_intention(self):
+        # print('flow intention', self.ui.BedValueBox.value())
         result = self.send_command(
             'change_flow_intention', self.ui.FlowIntentionBox.value())
-        if result == 'ok':
+        if True:
             QMessageBox.information(self.ui.centralwidget, 'Notification',
                                     f'Flow rate changed to {self.ui.FlowIntentionBox.value()}', QMessageBox.Ok)
 
     def update_infection_rate(self):
+        # print('infection rate', self.ui.BedValueBox.value())
         result = self.send_command(
             'change_infection_rate', self.ui.InfectionRateBox.value())
-        if result == 'ok':
+        if True:
             QMessageBox.information(self.ui.centralwidget, 'Notification',
-                                    f'Infection rate changed to {self.ui.InfectionRateBox.value()}, \
-                                    because of preventive actions are taken', QMessageBox.Ok)
-
-    def close_controlpanel(self):
-        reply = QMessageBox.information(self.ui.centralwidget, "Please Confirm", "Are you sure you want to exit \
-            the game contro panel?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-        if reply == QMessageBox.Yes:
-            result = self.send_command('close')
-            if result == 'ok':
-                QMessageBox.information(
-                    self.ui.centralwidget, 'Notification', 'You have exited the game', QMessageBox.Ok)
+                                    f'Infection rate changed to {self.ui.InfectionRateBox.value()}, because of preventive actions are taken', 
+                                    QMessageBox.Ok)
 
 
 if __name__ == '__main__':
