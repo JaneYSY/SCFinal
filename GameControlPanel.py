@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(822, 419)
+        MainWindow.resize(822, 327)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -103,12 +103,6 @@ class Ui_MainWindow(object):
         self.FlowIntentionBox.setProperty("value", 5.0)
         self.FlowIntentionBox.setObjectName("FlowIntentionBox")
         self.gridLayout_2.addWidget(self.FlowIntentionBox, 1, 2, 1, 1)
-        self.ExitGame = QtWidgets.QPushButton(self.centralwidget)
-        self.ExitGame.setGeometry(QtCore.QRect(230, 330, 311, 32))
-        font = QtGui.QFont()
-        font.setPointSize(12)
-        self.ExitGame.setFont(font)
-        self.ExitGame.setObjectName("ExitGame")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 822, 21))
@@ -130,7 +124,6 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Infection Rate"))
         self.FlowIntentionUpdateButton.setText(_translate("MainWindow", "Update"))
         self.BedUpdateButton.setText(_translate("MainWindow", "Update"))
-        self.ExitGame.setText(_translate("MainWindow", "Exit Game"))
 
 
 if __name__ == "__main__":
