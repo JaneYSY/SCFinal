@@ -47,7 +47,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Isolation Beds</string>
+        <string>Add Isolation Beds</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -55,7 +55,7 @@
       </widget>
      </item>
      <item row="0" column="2">
-      <widget class="QSpinBox" name="BedValueBox">
+      <widget class="QSpinBox" name="BedBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -66,10 +66,10 @@
         <string/>
        </property>
        <property name="minimum">
-        <number>1</number>
+        <number>50</number>
        </property>
        <property name="maximum">
-        <number>2500</number>
+        <number>900</number>
        </property>
        <property name="value">
         <number>200</number>
@@ -87,7 +87,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Flow Intention</string>
+        <string> Update Mean Travel Dist</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -95,7 +95,7 @@
       </widget>
      </item>
      <item row="2" column="0">
-      <widget class="QPushButton" name="InfectionRateUpdateButton">
+      <widget class="QPushButton" name="TransUpdate">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -114,7 +114,7 @@
         </font>
        </property>
        <property name="text">
-        <string>Infection Rate</string>
+        <string>Update Trans Prob</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -122,7 +122,7 @@
       </widget>
      </item>
      <item row="2" column="2">
-      <widget class="QDoubleSpinBox" name="InfectionRateBox">
+      <widget class="QDoubleSpinBox" name="TransBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -141,7 +141,7 @@
       </widget>
      </item>
      <item row="1" column="0">
-      <widget class="QPushButton" name="FlowIntentionUpdateButton">
+      <widget class="QPushButton" name="DistUpdate">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -153,7 +153,7 @@
       </widget>
      </item>
      <item row="0" column="0">
-      <widget class="QPushButton" name="BedUpdateButton">
+      <widget class="QPushButton" name="BedUpdate">
        <property name="font">
         <font>
          <pointsize>12</pointsize>
@@ -165,7 +165,7 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QDoubleSpinBox" name="FlowIntentionBox">
+      <widget class="QDoubleSpinBox" name="DistBox">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
          <horstretch>0</horstretch>
@@ -176,16 +176,16 @@
         <number>1</number>
        </property>
        <property name="minimum">
-        <double>1.000000000000000</double>
+        <double>0.000000000000000</double>
        </property>
        <property name="maximum">
-        <double>5.000000000000000</double>
+        <double>100.000000000000000</double>
        </property>
        <property name="singleStep">
         <double>0.500000000000000</double>
        </property>
        <property name="value">
-        <double>5.000000000000000</double>
+        <double>50.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -216,7 +216,7 @@
      <x>0</x>
      <y>0</y>
      <width>822</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
   </widget>

@@ -19,3 +19,6 @@ can see if they are able to control the disease.
 
 
 ## How to run?
+
+
+SIR Statistics source: https://www.cdc.gov/coronavirus/2019-ncov/hcp/clinical-guidance-management-patients.html
