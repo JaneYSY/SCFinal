@@ -4,10 +4,7 @@ import sys
 import math
 import numpy as np
 import random
-import socket
 from socketserver import (TCPServer as TCP, StreamRequestHandler as SRH)
-
-
 
 
 class Singleton(type):
@@ -422,13 +419,14 @@ class MyRequestHandler(SRH):
             Para.iso_room_capacity += value
             IsoRoom().available_beds += value
         elif command == 'set_travel_mean':
-            Para.travel_mean = value
+            Para.travel_mean = value / 10
         elif command == 'set_trans_prob':
-            Para.trans_prob = value
+            Para.trans_prob = value / 100
         elif command == 'close':
             Para.app.quit()
 
         self.wfile.write(b'ok\r\n')
+
 
 class Receiver(QtCore.QThread):
     tcp_server = None
@@ -441,47 +439,6 @@ class Receiver(QtCore.QThread):
 
     def run(self):
         Receiver.tcp_server.serve_forever()
-
-class Transmission:
-    def __init__(self,ui):
-        self.ui = ui
-        self.host = 'localhost'
-        self.port = 6589
-        self.addr = (self.host, self.port)
-
-    def send(self, command, value=None):
-        client_soc = socket.socket()
-        client_soc.connect(self.addr)
-        if value is None:
-            value = 0
-        line = command + ':' + str(value)
-        client_soc.send(('&s\r\n' % line).encode(encoding='utf-8'))
-        line = client_soc.recv(1024)
-        result = line.decode('utf-8').strip()
-        client_soc.close()
-        return result
-
-    def setup(self):
-        self.ui.BedUpdate.clicked.connect(self.update_Bed)
-        self.ui.TransUpdate.clicked.connect(self.update_Trans)
-        self.ui.DistUpdate.clicked.connect(self.update_Dist)
-        self.ui.ExitGame.clicked.connect(self.close)
-
-    def update_Bed(self):
-        print(self.ui.BedBox.value())
-        self.send('add_iso_beds', self.ui.BedBox.value())
-
-
-    def update_Trans(self):
-        print(self.ui.TransBox.value())
-        self.send('set_trans_prob', self.ui.TransBox.value())
-
-    def update_Dist(self):
-        print(self.ui.DistBox.value())
-        self.send('set_travel_mean', self.ui.DistBox.value())
-
-    def close(self):
-        self.send('close')
 
 
 def init_game():

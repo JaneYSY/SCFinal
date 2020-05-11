@@ -1,83 +1,53 @@
-import GameControlPanel
+import ControlPanel
 import sys
-from PyQt5.QtWidgets import *
-from socket import *
+from PyQt5 import QtWidgets
+import socket
 
-
-class Transmission():
-    def __init__(self, ui):
-        super().__init__()
+class Transmission:
+    def __init__(self,ui):
         self.ui = ui
-        self.hostIP = '127.0.0.1'
-        self.port = 4012
+        self.host = 'localhost'
+        self.port = 6589
+        self.addr = (self.host, self.port)
 
-    def send_command(self, command, value=None):
-        tcp_s = socket(AF_INET, SOCK_STREAM)
-        tcp_s.connect((self.hostIP, self.port))
-        buffer_size = 1024
-
-        if value == None:
+    def send(self, command, value=None):
+        tcp_client_socket = socket.socket(AF_INET, SOCK_STREAM)
+        tcp_client_socket.connect(self.addr)
+        if value is None:
             value = 0
-
         data = command + ':' + str(value)
-        tcp_s.send(('%s\r\n' % data).encode())
-        data = tcp_s.recv(buffer_size)
-        result = data.decode().strip()
-        tcp_s.close()
-
+        tcp_client_socket.send(('&s\r\n' % data).encode(encoding='utf-8'))
+        data = tcp_client_socket.recv(1024)
+        result = data.decode('utf-8').strip()
+        tcp_client_socket.close()
         return result
-        """Reference
-        Python network sockets programming tutorial
-        URL: https://pythonspot.com/python-network-sockets-programming-tutorial/
-        
-        UR Script: Commands via Socket connection
-        Author: Zacobria Universal-Robots community
-        URL: https://www.zacobria.com/universal-robots-zacobria-forum-hints-tips-how-to/script-via-socket-connection/
-        """
 
-    def setting(self):
-        self.ui.BedUpdateButton.clicked.connect(self.update_bed_number)
+    def setup(self):
+        self.ui.BedUpdate.clicked.connect(self.update_Bed)
+        self.ui.TransUpdate.clicked.connect(self.update_Trans)
+        self.ui.DistUpdate.clicked.connect(self.update_Dist)
+        self.ui.ExitGame.clicked.connect(self.close)
 
-        self.ui.FlowIntentionUpdateButton.clicked.connect(
-            self.update_flow_intention)
+    def update_Bed(self):
+        self.send('add_iso_beds', self.ui.BedBox.value())
 
-        self.ui.InfectionRateUpdateButton.clicked.connect(
-            self.update_infection_rate)
 
-    def update_bed_number(self):
-        # print('Bed', self.ui.BedValueBox.value())
-        result = self.send_command(
-            'add_bed', self.ui.BedValueBox.value())
-        if True:
-            QMessageBox.information(self.ui.centralwidget, 'Notification',
-                                    f'{self.ui.BedValueBox.value()} beds have been added successfully',
-                                    QMessageBox.Ok)
+    def update_Trans(self):
+        self.send('set_trans_prob', self.ui.TransBox.value())
 
-    def update_flow_intention(self):
-        # print('flow intention', self.ui.BedValueBox.value())
-        result = self.send_command(
-            'change_flow_intention', self.ui.FlowIntentionBox.value())
-        if True:
-            QMessageBox.information(self.ui.centralwidget, 'Notification',
-                                    f'Flow rate changed to {self.ui.FlowIntentionBox.value()}', QMessageBox.Ok)
+    def update_Dist(self):
+        self.send('set_travel_mean', self.ui.DistBox.value())
 
-    def update_infection_rate(self):
-        # print('infection rate', self.ui.BedValueBox.value())
-        result = self.send_command(
-            'change_infection_rate', self.ui.InfectionRateBox.value())
-        if True:
-            QMessageBox.information(self.ui.centralwidget, 'Notification',
-                                    f'Infection rate changed to {self.ui.InfectionRateBox.value()}, because of preventive actions are taken', 
-                                    QMessageBox.Ok)
+    def close(self):
+        self.send('close')
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    mainWindow = QMainWindow()
-    ui = GameControlPanel.Ui_MainWindow()
-
+    app = QtWidgets.QApplication(sys.argv)
+    mainWindow = QtWidgets.QMainWindow()
+    ui = ControlPanel.Ui_MainWindow()
     ui.setupUi(mainWindow)
     transmission = Transmission(ui)
-    transmission.setting()
+    transmission.setup()
     mainWindow.show()
     sys.exit(app.exec_())
