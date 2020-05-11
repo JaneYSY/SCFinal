@@ -273,7 +273,7 @@ class Para:
     '''
     game_over = False
     # total population on the cruise
-    total_population = 1500
+    total_population = 1000
 
     current_day = 1
 
@@ -287,9 +287,9 @@ class Para:
     dot_size = 10
 
     # Number of people who are infected (brought the disease on board)
-    patients_zero = 5
+    patients_zero = 25
 
-    fatal_rate = 0.08
+    fatal_rate = 0.07
     trans_prob = 0.8
 
     death_period = 20  # days take to die after infected
