@@ -292,13 +292,13 @@ class Para:
     recover_period_var = 40
 
     # response latency - delay of a sick person getting isolation
-    iso_latency = 2
+    iso_latency = 5
 
-    iso_room_capacity = 100
+    iso_room_capacity = 0
 
     safe_distance = 10  # safe distance to prevent spreading of virus
 
-    travel_mean = 100  # average travel distance of all people
+    travel_mean = 50  # average travel distance of all people
     travel_var = 50  # variance of the travel distance of all people
 
     move_speed = 20  # moving distance of each person per day
@@ -360,10 +360,15 @@ class Plot(QtWidgets.QWidget):
         sick_count = 0
         isolated_count = 0
         dead_count = 0
+        recover_count = 0
         for person in all_persons:
             if person.status == Condition.healthy:
-                painter.setPen(QtGui.QColor(0, 255, 0))
                 healthy_count += 1
+                if person.dead_time == -1:
+                    painter.setPen(QtGui.QColor(0, 170, 0))
+                    recover_count += 1
+                else:
+                    painter.setPen(QtGui.QColor(0, 255, 0))
             elif person.status == Condition.incubation:
                 painter.setPen(QtGui.QColor(255, 0, 255))
                 incubation_count += 1
@@ -387,6 +392,7 @@ class Plot(QtWidgets.QWidget):
         self.ui.label_18time.setText(f'<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">{int_day}</span></p></body></html>')
         self.ui.label_10Totalpopulation.setText(f'{Para.total_population}')
         self.ui.label_11healthy.setText(f'<html><head/><body><p><span style=\" color:#00ff00;\">{healthy_count}</span></p></body></html>')
+        self.ui.label_11healthy_2.setText(f'<html><head/><body><p><span style=\" color:#00aa00;\">{recover_count}</span></p></body></html>')
         self.ui.label_13symtomatic.setText(f'<html><head/><body><p><span style=\" color:#ff00ff;\">{incubation_count}</span></p></body></html>')
         self.ui.label_12incubation.setText(f'<html><head/><body><p><span style=\" color:#ff0000;\">{sick_count}</span></p></body></html>')
         self.ui.label_15isolated.setText(f'<html><head/><body><p><span style=\" color:#00aaff;\">{isolated_count}</span></p></body></html>')
@@ -419,7 +425,7 @@ class MyRequestHandler(SRH):
             Para.iso_room_capacity += value
             IsoRoom().available_beds += value
         elif command == 'set_travel_mean':
-            Para.travel_mean = value / 10
+            Para.travel_mean = value
         elif command == 'set_trans_prob':
             Para.trans_prob = value / 100
         elif command == 'close':

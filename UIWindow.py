@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'UIwindow.ui'
+# Form implementation generated from reading ui file '.\UIWindow.ui'
 #
 # Created by: PyQt5 UI code generator 5.9.2
 #
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1620, 1020)
+        MainWindow.resize(1618, 1060)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
@@ -41,6 +41,13 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2)
+        self.label_4 = QtWidgets.QLabel(self.verticalLayoutWidget)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        font.setStrikeOut(False)
+        self.label_4.setFont(font)
+        self.label_4.setObjectName("label_4")
+        self.verticalLayout.addWidget(self.label_4)
         self.label_3 = QtWidgets.QLabel(self.verticalLayoutWidget)
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -101,6 +108,12 @@ class Ui_MainWindow(object):
         self.label_11healthy.setFont(font)
         self.label_11healthy.setObjectName("label_11healthy")
         self.verticalLayout_2.addWidget(self.label_11healthy)
+        self.label_11healthy_2 = QtWidgets.QLabel(self.verticalLayoutWidget_2)
+        font = QtGui.QFont()
+        font.setPointSize(12)
+        self.label_11healthy_2.setFont(font)
+        self.label_11healthy_2.setObjectName("label_11healthy_2")
+        self.verticalLayout_2.addWidget(self.label_11healthy_2)
         self.label_13symtomatic = QtWidgets.QLabel(self.verticalLayoutWidget_2)
         font = QtGui.QFont()
         font.setPointSize(12)
@@ -223,7 +236,7 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.label_21)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1620, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1618, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -239,6 +252,7 @@ class Ui_MainWindow(object):
         self.label_7.setText(_translate("MainWindow", "Current time (day):"))
         self.label.setText(_translate("MainWindow", "Total population on board:"))
         self.label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; font-size:16px; color:#00ff00; background-color:#ffffff;\">■ </span><span style=\" color:#00ff00;\">Healthy people (including recovered):</span></p></body></html>"))
+        self.label_4.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:11pt; font-style:italic; color:#00aa00;\">*Recovered:</span></p></body></html>"))
         self.label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; font-size:16px; color:#ff00ff; background-color:#ffffff;\">■ </span><span style=\" color:#ff00ff;\">People in incubation period:</span></p></body></html>"))
         self.label_9.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; font-size:16px; color:#ff0000; background-color:#ffffff;\">■ </span><span style=\" color:#ff0000;\">Symptomatic patients:</span></p></body></html>"))
         self.label_6.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-family:\'sans-serif\'; font-size:16px; color:#00aaff; background-color:#ffffff;\">■ </span><span style=\" color:#00aaff;\">Isolated patients:</span></p></body></html>"))
@@ -248,6 +262,7 @@ class Ui_MainWindow(object):
         self.label_18time.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">T</span></p></body></html>"))
         self.label_10Totalpopulation.setText(_translate("MainWindow", "A"))
         self.label_11healthy.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#00ff00;\">B</span></p></body></html>"))
+        self.label_11healthy_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#00aa00;\">B2</span></p></body></html>"))
         self.label_13symtomatic.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ff00ff;\">C</span></p></body></html>"))
         self.label_12incubation.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#ff0000;\">D</span></p></body></html>"))
         self.label_15isolated.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" color:#00aaff;\">E</span></p></body></html>"))

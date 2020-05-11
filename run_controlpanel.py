@@ -11,12 +11,12 @@ class Transmission:
         self.addr = (self.host, self.port)
 
     def send(self, command, value=None):
-        tcp_client_socket = socket.socket(AF_INET, SOCK_STREAM)
+        tcp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tcp_client_socket.connect(self.addr)
         if value is None:
             value = 0
         data = command + ':' + str(value)
-        tcp_client_socket.send(('&s\r\n' % data).encode(encoding='utf-8'))
+        tcp_client_socket.send(('%s\r\n' % data).encode(encoding='utf-8'))
         data = tcp_client_socket.recv(1024)
         result = data.decode('utf-8').strip()
         tcp_client_socket.close()
@@ -33,7 +33,7 @@ class Transmission:
 
 
     def update_Trans(self):
-        self.send('set_trans_prob', self.ui.TransBox.value())
+        self.send('set_trans_prob', self.ui.TranBox.value())
 
     def update_Dist(self):
         self.send('set_travel_mean', self.ui.DistBox.value())

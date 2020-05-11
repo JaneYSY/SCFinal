@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>822</width>
-    <height>327</height>
+    <width>670</width>
+    <height>341</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -24,8 +24,8 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>40</y>
-      <width>741</width>
+      <y>20</y>
+      <width>611</width>
       <height>231</height>
      </rect>
     </property>
@@ -69,10 +69,13 @@
         <number>50</number>
        </property>
        <property name="maximum">
-        <number>900</number>
+        <number>500</number>
+       </property>
+       <property name="singleStep">
+        <number>100</number>
        </property>
        <property name="value">
-        <number>200</number>
+        <number>100</number>
        </property>
        <property name="displayIntegerBase">
         <number>10</number>
@@ -87,7 +90,7 @@
         </font>
        </property>
        <property name="text">
-        <string> Update Mean Travel Dist</string>
+        <string> Update Travel Distance</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
@@ -114,29 +117,10 @@
         </font>
        </property>
        <property name="text">
-        <string>Update Trans Prob</string>
+        <string>Update Trans Prob (%)</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QDoubleSpinBox" name="TransBox">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximum">
-        <double>1.000000000000000</double>
-       </property>
-       <property name="singleStep">
-        <double>0.010000000000000</double>
-       </property>
-       <property name="value">
-        <double>0.750000000000000</double>
        </property>
       </widget>
      </item>
@@ -165,42 +149,81 @@
       </widget>
      </item>
      <item row="1" column="2">
-      <widget class="QDoubleSpinBox" name="DistBox">
+      <widget class="QSpinBox" name="DistBox">
        <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
-       <property name="decimals">
-        <number>1</number>
+       <property name="suffix">
+        <string/>
        </property>
        <property name="minimum">
-        <double>0.000000000000000</double>
+        <number>-100</number>
        </property>
        <property name="maximum">
-        <double>100.000000000000000</double>
+        <number>500</number>
        </property>
        <property name="singleStep">
-        <double>0.500000000000000</double>
+        <number>10</number>
        </property>
        <property name="value">
-        <double>50.000000000000000</double>
+        <number>100</number>
+       </property>
+       <property name="displayIntegerBase">
+        <number>10</number>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QSpinBox" name="TranBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="suffix">
+        <string/>
+       </property>
+       <property name="minimum">
+        <number>0</number>
+       </property>
+       <property name="maximum">
+        <number>100</number>
+       </property>
+       <property name="singleStep">
+        <number>5</number>
+       </property>
+       <property name="value">
+        <number>80</number>
+       </property>
+       <property name="displayIntegerBase">
+        <number>10</number>
        </property>
       </widget>
      </item>
     </layout>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>822</width>
-     <height>26</height>
-    </rect>
-   </property>
+   <widget class="QPushButton" name="ExitGame">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>260</y>
+      <width>242</width>
+      <height>33</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Exit</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
