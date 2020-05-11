@@ -20,4 +20,3 @@ Actions, such as isolating patients, restricting the travel of individuals, or r
 ## How to run?
 
 
-SIR Statistics source: https://www.cdc.gov/coronavirus/2019-ncov/hcp/clinical-guidance-management-patients.html

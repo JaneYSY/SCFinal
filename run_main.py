@@ -72,7 +72,11 @@ class IsoRoom(metaclass=Singleton):
             self.beds_list.append(Bed(i))
 
     def expand_cap(self, quantity=1):
-        last_num = self.beds_list[-1].bed_number
+        self.available_beds += quantity
+        if len(self.beds_list) == 0:
+            last_num = -1
+        else:
+            last_num = self.beds_list[-1].bed_number
         for i in range(0, quantity):
             new_num = last_num + i + 1
             self.beds_list.append(Bed(new_num))
@@ -261,6 +265,12 @@ class Pool(metaclass=Singleton):
 
 
 class Para:
+    '''
+    Parameters are based on SIR virus transmission model:
+    https://www.maa.org/press/periodicals/loci/joma/the-sir-model-for-spread-of-disease-the-differential-equation-model
+    SIR Statistics of COVID-19 source:
+    https://www.cdc.gov/coronavirus/2019-ncov/hcp/clinical-guidance-management-patients.html
+    '''
     game_over = False
     # total population on the cruise
     total_population = 1000
@@ -423,7 +433,7 @@ class MyRequestHandler(SRH):
 
         if command == 'add_iso_beds':
             Para.iso_room_capacity += value
-            IsoRoom().available_beds += value
+            IsoRoom().expand_cap(value)
         elif command == 'set_travel_mean':
             Para.travel_mean = value
         elif command == 'set_trans_prob':
