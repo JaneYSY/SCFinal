@@ -4,19 +4,58 @@ Software Carpentary Final Project
 Team: Zhezhi Chen, Shengyu Yao
 
 ## Background
-We are all stuck at home due to COVID-19. Disease tranmitting is terrifying enough. 
-Cruise ships, due to the nature of being a close, isolated environment with highly concentrated populations of 
-widespread backgrounds and active social interaction, become one of the highest places of confirmed cases per capita.
+We are all stuck at home now due to the horrible COVID-19. 
+Cruise ships, due to the nature of being a close, isolated environment with highly concentrated populations of different backgrounds
+and active social interaction, become one of the highest places of confirmed cases per capita.
 
 This project is to demonstrate how COVID-19 (or any contagious disease) spreads in a closed environment, such as a cruise. 
-1000 people are placed in the environment. 25 randomly-selected patient zeros are randomly placed at different locations on the floor plan of an x-y plot.
-We simulate how the disease passes from one to the other, showing it on GUI.
-Actions, such as isolating patients, restricting the travel of individuals, or reducing transmission probabilities(like wearing masks) are taken to prevent the spreading. Those actions are manageable. By playing with the actions, players can see if they are able to control the disease. 
+1000 people are placed in the environment. 25 randomly-selected patient zeros are placed at different locations on the floor plan, which isan x-y plot.
 
 
-## What does the code do
+We simulate how the disease spreads by showing it on GUI.Factors in disease transmitting, such as transmission probability, traveling distance, and isolation space are crucial in prevent further infection and reducing death. In this simulation, users can "take actions", such as changing more rooms to isolation rooms, restricting moving, and wearing masks, to change the factors on the Game Control Panel and see if they are able to control the disease. 
 
+
+## What does the code do?
+The run_main.py file
+* Simulates all the movements and stores health conditions of individuals
+* Simulates transmission of disease and calculating the using and the need of isolation beds
+* Plotting and refreshing the cruise floor map to live demonstrate people at each condition with the changing of time by using different colors
+* Receiving, separating, and updating inputs from clients onto the COVID19 Simulation window
+
+
+The run_controlpanel.py file
+* Establishes the Server for client sockets to communcate with
+* Send client commands to the server from the Game Control Panel window in order to update the adjustable factors
 
 ## How to run?
+* Download code from GitHub.
+* Install PyQt5 before running:
+```python
+pip install PyQt5
+```
+* Run both run_main.py and run_controlpanel.py files by entering
+```python
+python run_main.py
+```
+or
+```python
+python run_controlpanel.py
+````
+Due to the restriction of Anaconda, we suggest you to run one of the command about and build another on in text editor. So both windows can be opened and the communication can be established. 
+
+
+Both COVID19 Simulation and Game Control Panel are opend by running the two files above. The Simulation windown starts to run simulation spontaneously. Ajust the numbers in boxes and click Update on Game Control Panel window. New numbers will be updated to the Simulation window and the disease transmission will start to change based on input.
+
+If you want to exit the game when the outbreak hasn't reached an end, click exist to close the Simulation window and close the Control Panel.
+
+When the outbreak reaches an end, a message will be sent to signal the game is over.
+
+
+Note: The Control Panel ADDES new beds to the isolation space instead of changing the bed number directly. Please do a good math before adding beds.
+
+
+
+
+
 
 
