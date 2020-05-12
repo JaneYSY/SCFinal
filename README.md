@@ -31,7 +31,7 @@ Install PyQt5 before running:
 ```python
 pip install PyQt5
 ```
-Run both run_main.py and run_controlpanel.py files by entering
+Run both run_main.py and run_controlpanel.py files by entering:
 ```python
 python run_main.py
 ```
