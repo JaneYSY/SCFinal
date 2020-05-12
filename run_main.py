@@ -602,6 +602,7 @@ class MyRequestHandler(SRH):
         value = data[index + 1:]
         value = int(value)
 
+        # Update parameters (in Para class) based on command received.
         if command == 'add_iso_beds':
             Para.iso_room_capacity += value
             IsoRoom().expand_cap(value)
@@ -650,7 +651,7 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     Para.app = app
     main = QtWidgets.QMainWindow()
-    ui = UIWindow.Ui_MainWindow()
+    ui = UIWindow.Ui_COVID19Simulation()
     ui.setupUi(main)
 
     init_game()

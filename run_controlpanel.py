@@ -3,14 +3,31 @@ import sys
 from PyQt5 import QtWidgets
 import socket
 
+
 class Transmission:
-    def __init__(self,ui):
+    '''
+    Class object to establish server and send client
+
+    '''
+
+    def __init__(self, ui):
         self.ui = ui
         self.host = 'localhost'
         self.port = 6589
         self.addr = (self.host, self.port)
 
     def send(self, command, value=None):
+        '''
+        Send command and client input value to server.
+        **Parameter**
+            command: *str*
+                Command strings from functions update_bed, update_Trans, update_Dist,
+                and close.
+            value: *int*
+                Input value from boxes of ControlPanel GUI.
+
+
+        '''
         tcp_client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         tcp_client_socket.connect(self.addr)
         if value is None:
@@ -31,7 +48,6 @@ class Transmission:
     def update_Bed(self):
         self.send('add_iso_beds', self.ui.BedBox.value())
 
-
     def update_Trans(self):
         self.send('set_trans_prob', self.ui.TranBox.value())
 
@@ -45,7 +61,7 @@ class Transmission:
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     mainWindow = QtWidgets.QMainWindow()
-    ui = ControlPanel.Ui_MainWindow()
+    ui = ControlPanel.Ui_GameControlPanel()
     ui.setupUi(mainWindow)
     transmission = Transmission(ui)
     transmission.setup()

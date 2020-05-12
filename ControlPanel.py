@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\ControlPanel.ui'
+# Form implementation generated from reading ui file 'ControlPanel.ui'
 #
 # Created by: PyQt5 UI code generator 5.9.2
 #
@@ -8,16 +8,16 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(670, 341)
+class Ui_GameControlPanel(object):
+    def setupUi(self, GameControlPanel):
+        GameControlPanel.setObjectName("GameControlPanel")
+        GameControlPanel.resize(670, 341)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
-        MainWindow.setSizePolicy(sizePolicy)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        sizePolicy.setHeightForWidth(GameControlPanel.sizePolicy().hasHeightForWidth())
+        GameControlPanel.setSizePolicy(sizePolicy)
+        self.centralwidget = QtWidgets.QWidget(GameControlPanel)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayoutWidget = QtWidgets.QWidget(self.centralwidget)
         self.gridLayoutWidget.setGeometry(QtCore.QRect(20, 20, 611, 231))
@@ -114,32 +114,32 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.ExitGame.setFont(font)
         self.ExitGame.setObjectName("ExitGame")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        GameControlPanel.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(GameControlPanel)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        GameControlPanel.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi(GameControlPanel)
+        QtCore.QMetaObject.connectSlotsByName(GameControlPanel)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, GameControlPanel):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "Add Isolation Beds"))
-        self.label_2.setText(_translate("MainWindow", " Update Travel Distance"))
-        self.TransUpdate.setText(_translate("MainWindow", "Update"))
-        self.label_3.setText(_translate("MainWindow", "Update Trans Prob (%)"))
-        self.DistUpdate.setText(_translate("MainWindow", "Update"))
-        self.BedUpdate.setText(_translate("MainWindow", "Update"))
-        self.ExitGame.setText(_translate("MainWindow", "Exit"))
+        GameControlPanel.setWindowTitle(_translate("GameControlPanel", "MainWindow"))
+        self.label.setText(_translate("GameControlPanel", "Add Isolation Beds"))
+        self.label_2.setText(_translate("GameControlPanel", " Update Travel Distance"))
+        self.TransUpdate.setText(_translate("GameControlPanel", "Update"))
+        self.label_3.setText(_translate("GameControlPanel", "Update Trans Prob (%)"))
+        self.DistUpdate.setText(_translate("GameControlPanel", "Update"))
+        self.BedUpdate.setText(_translate("GameControlPanel", "Update"))
+        self.ExitGame.setText(_translate("GameControlPanel", "Exit"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    GameControlPanel = QtWidgets.QMainWindow()
+    ui = Ui_GameControlPanel()
+    ui.setupUi(GameControlPanel)
+    GameControlPanel.show()
     sys.exit(app.exec_())
 
