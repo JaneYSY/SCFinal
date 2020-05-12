@@ -589,7 +589,7 @@ class Plot(QtWidgets.QWidget):
 
 class MyRequestHandler(SRH):
     '''
-    Class object to receive requests from client and send commands.
+    Class object to receive requests from client and update related values.
     '''
 
     def handle(self):
@@ -638,7 +638,7 @@ class Receiver(QtCore.QThread):
 
 def init_game():
     '''
-    To start the game with random patient zero numbers and mark them as infected ones.
+    To start the game with random patient zeros and mark them as infected ones.
     '''
     Pool()
     IsoRoom()

@@ -124,7 +124,7 @@ class Ui_GameControlPanel(object):
 
     def retranslateUi(self, GameControlPanel):
         _translate = QtCore.QCoreApplication.translate
-        GameControlPanel.setWindowTitle(_translate("GameControlPanel", "MainWindow"))
+        GameControlPanel.setWindowTitle(_translate("GameControlPanel", "Game Control Panel"))
         self.label.setText(_translate("GameControlPanel", "Add Isolation Beds"))
         self.label_2.setText(_translate("GameControlPanel", " Update Travel Distance"))
         self.TransUpdate.setText(_translate("GameControlPanel", "Update"))

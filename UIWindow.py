@@ -248,7 +248,7 @@ class Ui_COVID19Simulation(object):
 
     def retranslateUi(self, COVID19Simulation):
         _translate = QtCore.QCoreApplication.translate
-        COVID19Simulation.setWindowTitle(_translate("COVID19Simulation", "MainWindow"))
+        COVID19Simulation.setWindowTitle(_translate("COVID19Simulation", "COVID19 Simulation"))
         self.label_7.setText(_translate("COVID19Simulation", "Current time (day):"))
         self.label.setText(_translate("COVID19Simulation", "Total population on board:"))
         self.label_2.setText(_translate("COVID19Simulation", "<html><head/><body><p><span style=\" color:#00ff00;\">Healthy people (including recovered):</span></p></body></html>"))

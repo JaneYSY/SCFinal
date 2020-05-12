@@ -6,7 +6,7 @@ import socket
 
 class Transmission:
     '''
-    Class object to establish server and send client
+    Class object to establish server and send client commands.
 
     '''
 
