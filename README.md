@@ -17,12 +17,12 @@ We simulate how the disease spreads by showing it on GUI. Factors in disease-tra
 The run_main.py file
 * Simulates all the movements and stores health conditions of individuals
 * Simulates transmission of disease and calculating the using and the need of isolation beds
-* Plotting and refreshing the cruise floor map to  demonstrate people at each condition with the changing of time by using different colors
-* Receiving, separating, and updating inputs from clients onto the COVID19 Simulation window
+* Plots and refreshes the cruise floor map to  demonstrate people at each condition with the changing of time by using different colors
+* Receives, separates, and updates inputs from clients onto the COVID19 Simulation window
 
 The run_controlpanel.py file
 * Establishes the Server for client sockets to communicate with
-* Send client commands to the server from the Game Control Panel window in order to update the adjustable factors
+* Sends client commands to the server from the Game Control Panel window in order to update the adjustable factors
 
 ## How to run?
 Download code from GitHub.
