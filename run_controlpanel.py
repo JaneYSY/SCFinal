@@ -39,6 +39,15 @@ class Transmission:
         tcp_client_socket.close()
         return result
 
+    """Reference
+    Python network sockets programming tutorial
+    URL: https://pythonspot.com/python-network-sockets-programming-tutorial/
+    
+    UR Script: Commands via Socket connection
+    Author: Zacobria Universal-Robots community
+    URL: https://www.zacobria.com/universal-robots-zacobria-forum-hints-tips-how-to/script-via-socket-connection/
+    """
+
     def setup(self):
         self.ui.BedUpdate.clicked.connect(self.update_Bed)
         self.ui.TransUpdate.clicked.connect(self.update_Trans)
