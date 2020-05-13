@@ -254,12 +254,12 @@ class Person(Point):
             self.relocation = Movement(target_x, target_y)
 
         if self.get_distance(self.relocation) < Para.move_speed / 10:
-            self.move_to(self.relocation)  # class Point
+            self.move_to(self.relocation)
             self.relocation.arrived = True
             return
 
         target_dir = self.get_vector(self.relocation)
-        step_dir = target_dir / target_dir.get_len()  # step directio in unit vector
+        step_dir = target_dir / target_dir.get_len()  # step direction in unit vector
         step_vec = Para.move_speed / 10 * step_dir
         self.move(step_vec)
 
