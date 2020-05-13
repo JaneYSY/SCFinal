@@ -325,7 +325,9 @@ class Person(Point):
             if self.bed_waitlisted and IsoRoom().need_beds > 0:
                 self.bed_waitlisted = False
                 IsoRoom().need_beds -= 1
+                Pool().infective.remove(self)
             self.status = Condition.healthy
+
 
         # Deal with incubation period person
         if self.status == Condition.incubation:
